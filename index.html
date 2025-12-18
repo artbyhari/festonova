@@ -6,7 +6,7 @@
     <title>Festonova | Premier Corporate Event Management India</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
     <style>
         :root {
             /* Deep Luxury Brown Palette */
@@ -27,7 +27,7 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 {
+        h1, h2, h3, h4, h5 {
             font-family: 'Playfair Display', serif;
         }
 
@@ -67,7 +67,7 @@
         .page-section {
             display: none;
             opacity: 0;
-            animation: fadeIn 0.6s ease-out forwards;
+            animation: fadeIn 0.8s ease-out forwards;
         }
         
         .page-section.active {
@@ -75,8 +75,52 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* New Animations for Home Page */
+        @keyframes kenburns {
+            0% { transform: scale(1) translate(0,0); }
+            100% { transform: scale(1.1) translate(-1%, -1%); }
+        }
+        
+        .animate-kenburns {
+            animation: kenburns 20s ease-in-out infinite alternate;
+        }
+
+        .animate-fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes shine {
+            100% { left: 125%; }
+        }
+        
+        .hover-shine:hover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 100%);
+            transform: skewX(-25deg);
+            animation: shine 0.75s;
+        }
+
+        /* Glass Panels */
+        .glass-panel {
+            background: rgba(43, 32, 24, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
         /* Image Hover Zoom */
@@ -84,10 +128,25 @@
             overflow: hidden;
         }
         .img-zoom-container img {
-            transition: transform 0.7s ease;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .img-zoom-container:hover img {
             transform: scale(1.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a120e; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3E2D23; 
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37; 
         }
     </style>
 </head>
@@ -119,39 +178,63 @@
     <!-- Navigation -->
     <header class="sticky top-0 z-50 bg-[#1a120e]/95 backdrop-blur-md border-b border-[#3E2D23] shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+            <div class="flex justify-between items-center h-24">
                 <!-- Logo -->
                 <a href="#home" class="flex items-center gap-3 group">
-                    <div class="h-10 w-auto">
-                        <img src="logo.png" alt="Festonova Logo" class="h-full object-contain filter drop-shadow-[0_0_5px_rgba(212,175,55,0.3)]">
+                    <img src="imgs/logo.png" alt="Festonova" class="h-14 w-auto object-contain transition duration-300 group-hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                    
+                    <!-- Fallback if logo.png is missing -->
+                    <div class="hidden h-12 w-12 flex items-center justify-center border-2 border-[#D4AF37] rounded-sm transform rotate-45 group-hover:rotate-0 transition duration-500">
+                        <span class="text-[#D4AF37] font-serif font-bold text-2xl transform -rotate-45 group-hover:rotate-0 transition duration-500">F</span>
                     </div>
-                    <span class="text-2xl font-bold tracking-widest text-white group-hover:text-[#D4AF37] transition duration-300 font-serif">FESTONOVA</span>
+
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-bold tracking-[0.2em] text-white group-hover:text-[#D4AF37] transition duration-300 font-serif">FESTONOVA</span>
+                        <span class="text-[0.6rem] uppercase tracking-widest text-gray-500">Events & Experiences</span>
+                    </div>
                 </a>
 
                 <!-- Desktop Nav -->
-                <nav class="hidden md:flex space-x-8">
-                    <a href="#home" class="nav-link text-sm uppercase tracking-widest font-semibold hover:text-[#D4AF37] py-2 transition text-gray-300" data-target="home">Home</a>
-                    <a href="#services" class="nav-link text-sm uppercase tracking-widest font-semibold hover:text-[#D4AF37] py-2 transition text-gray-300" data-target="services">Services</a>
-                    <a href="#portfolio" class="nav-link text-sm uppercase tracking-widest font-semibold hover:text-[#D4AF37] py-2 transition text-gray-300" data-target="portfolio">Portfolio</a>
-                    <a href="#about" class="nav-link text-sm uppercase tracking-widest font-semibold hover:text-[#D4AF37] py-2 transition text-gray-300" data-target="about">About</a>
-                    <a href="#contact" class="nav-link text-sm uppercase tracking-widest font-semibold hover:text-[#D4AF37] py-2 transition text-gray-300" data-target="contact">Contact</a>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-xs uppercase tracking-[0.15em] font-bold hover:text-[#D4AF37] py-2 transition text-gray-300" data-target="home">Home</a>
+                    <a href="#services" class="nav-link text-xs uppercase tracking-[0.15em] font-bold hover:text-[#D4AF37] py-2 transition text-gray-300" data-target="services">Services</a>
+                    <a href="#portfolio" class="nav-link text-xs uppercase tracking-[0.15em] font-bold hover:text-[#D4AF37] py-2 transition text-gray-300" data-target="portfolio">Portfolio</a>
+                    <a href="#about-us" class="nav-link text-xs uppercase tracking-[0.15em] font-bold hover:text-[#D4AF37] py-2 transition text-gray-300" data-target="about-us">About</a>
+                    <a href="#contact" class="nav-link text-xs uppercase tracking-[0.15em] font-bold hover:text-[#D4AF37] py-2 transition text-gray-300" data-target="contact">Contact</a>
+                    
+                    <!-- Header Socials -->
+                    <div class="flex gap-4 border-l border-[#3E2D23] pl-6 ml-2 items-center">
+                        <a href="https://wa.me/6307640127" target="_blank" class="text-gray-400 hover:text-[#25D366] transition" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="mailto:info.festonova@gmail.com" class="text-gray-400 hover:text-[#EA4335] transition" title="Email"><i class="fas fa-envelope"></i></a>
+                        <a href="https://www.instagram.com/festonova_events/" target="_blank" class="text-gray-400 hover:text-[#D4AF37] transition"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61585160183510" target="_blank" class="text-gray-400 hover:text-[#D4AF37] transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/Festonovaevents" target="_blank" class="text-gray-400 hover:text-[#D4AF37] transition"><i class="fa-brands fa-x-twitter"></i></a>
+                    </div>
                 </nav>
 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-[#D4AF37]">
+                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-[#D4AF37] p-2">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
         </div>
         
         <!-- Mobile Nav Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-[#2B2018] border-b border-[#3E2D23]">
-            <div class="px-4 pt-2 pb-4 space-y-1">
-                <a href="#home" class="block px-3 py-2 text-base font-medium text-white hover:bg-[#3E2D23] hover:text-[#D4AF37]" onclick="closeMobileMenu()">Home</a>
-                <a href="#services" class="block px-3 py-2 text-base font-medium text-white hover:bg-[#3E2D23] hover:text-[#D4AF37]" onclick="closeMobileMenu()">Services</a>
-                <a href="#portfolio" class="block px-3 py-2 text-base font-medium text-white hover:bg-[#3E2D23] hover:text-[#D4AF37]" onclick="closeMobileMenu()">Portfolio</a>
-                <a href="#about" class="block px-3 py-2 text-base font-medium text-white hover:bg-[#3E2D23] hover:text-[#D4AF37]" onclick="closeMobileMenu()">About</a>
-                <a href="#contact" class="block px-3 py-2 text-base font-medium text-white hover:bg-[#3E2D23] hover:text-[#D4AF37]" onclick="closeMobileMenu()">Contact</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-[#2B2018] border-b border-[#3E2D23] absolute w-full left-0 top-24 shadow-2xl z-50">
+            <div class="px-6 py-4 space-y-3">
+                <a href="#home" class="block px-3 py-3 text-sm uppercase tracking-widest font-bold text-white hover:bg-[#3E2D23] hover:text-[#D4AF37] border-b border-[#3E2D23]" onclick="closeMobileMenu()">Home</a>
+                <a href="#services" class="block px-3 py-3 text-sm uppercase tracking-widest font-bold text-white hover:bg-[#3E2D23] hover:text-[#D4AF37] border-b border-[#3E2D23]" onclick="closeMobileMenu()">Services</a>
+                <a href="#portfolio" class="block px-3 py-3 text-sm uppercase tracking-widest font-bold text-white hover:bg-[#3E2D23] hover:text-[#D4AF37] border-b border-[#3E2D23]" onclick="closeMobileMenu()">Portfolio</a>
+                <a href="#about-us" class="block px-3 py-3 text-sm uppercase tracking-widest font-bold text-white hover:bg-[#3E2D23] hover:text-[#D4AF37] border-b border-[#3E2D23]" onclick="closeMobileMenu()">About</a>
+                <a href="#contact" class="block px-3 py-3 text-sm uppercase tracking-widest font-bold text-white hover:bg-[#3E2D23] hover:text-[#D4AF37]" onclick="closeMobileMenu()">Contact</a>
+                
+                <div class="flex justify-center gap-6 pt-4 pb-2">
+                    <a href="https://wa.me/6307640127" target="_blank" class="text-white text-xl"><i class="fab fa-whatsapp"></i></a>
+                    <a href="mailto:info.festonova@gmail.com" class="text-white text-xl"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.instagram.com/festonova_events/" target="_blank" class="text-white text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61585160183510" target="_blank" class="text-white text-xl"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://x.com/Festonovaevents" target="_blank" class="text-white text-xl"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
             </div>
         </div>
     </header>
@@ -162,301 +245,546 @@
         <!-- ================= HOME PAGE ================= -->
         <div id="home" class="page-section active">
             <!-- Hero Section -->
-            <section class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+            <section class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
                 <!-- Background Image -->
                 <div class="absolute inset-0 z-0">
-                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                    <img src="imgs/hero-background.jpg" 
                          alt="Corporate Event Stage Mumbai" 
-                         class="w-full h-full object-cover opacity-60">
+                         class="w-full h-full object-cover opacity-60 animate-kenburns"
+                         onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#1a120e'">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#1a120e] via-[#1a120e]/60 to-transparent"></div>
+                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
                 </div>
 
                 <!-- Hero Content -->
-                <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-[-50px]">
-                    <p class="text-[#D4AF37] uppercase tracking-[0.2em] font-bold mb-4 animate-fade-in-up">India's Premier Event Architects</p>
-                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-2xl">
-                        Architecting <span class="text-gold-gradient italic">Unforgettable</span><br> Experiences in Mumbai & Beyond.
-                    </h1>
-                    <p class="text-xl text-gray-200 mb-10 max-w-3xl mx-auto font-light">
-                        Specializing in DevFests, Nesco Exhibitions, Tech Fests, and High-Stakes Corporate Summits. We handle the complexity, so you can focus on the connection.
-                    </p>
-                    <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <a href="#contact" class="bg-gold-btn px-8 py-4 rounded-sm font-bold uppercase tracking-wider text-sm">Start Your Project</a>
-                        <a href="#portfolio" class="border border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#1a120e] px-8 py-4 rounded-sm font-bold uppercase tracking-wider text-sm transition duration-300">View Our Work</a>
+                <div class="relative z-10 text-center px-4 max-w-6xl mx-auto mt-[-50px]">
+                    <div class="inline-block border border-[#D4AF37]/50 px-6 py-2 mb-8 rounded-full bg-black/40 backdrop-blur-md animate-fade-in-up" style="animation-delay: 0.1s;">
+                        <p class="text-[#D4AF37] uppercase tracking-[0.3em] font-bold text-xs">Excellence Since 2023</p>
                     </div>
+                    
+                    <h1 class="text-6xl md:text-9xl font-bold text-white mb-8 leading-tight drop-shadow-2xl animate-fade-in-up" style="animation-delay: 0.3s; text-shadow: 0 10px 40px rgba(0,0,0,0.8);">
+                        Architecting <br> 
+                        <span class="text-gold-gradient italic font-serif relative">
+                            Unforgettable
+                            <svg class="absolute w-full h-3 -bottom-1 left-0 text-[#D4AF37] opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none" />
+                            </svg>
+                        </span> <br>
+                        Moments
+                    </h1>
+
+                    <p class="text-xl md:text-2xl text-gray-200 mb-12 max-w-3xl mx-auto font-light leading-relaxed animate-fade-in-up" style="animation-delay: 0.5s;">
+                        From the high-tech corridors of <strong class="text-white">Techfest IIT Bombay</strong> to the grand reveal of the <strong class="text-white">Tata Sierra</strong>. We handle the chaos so you can focus on the connection.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row justify-center gap-6 animate-fade-in-up" style="animation-delay: 0.7s;">
+                        <a href="#contact" class="group relative bg-gold-btn px-10 py-5 rounded-sm font-bold uppercase tracking-widest text-sm shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] transition-all overflow-hidden hover-shine">
+                            <span class="relative z-10">Start Your Project</span>
+                        </a>
+                        <a href="#portfolio" class="group px-10 py-5 rounded-sm font-bold uppercase tracking-widest text-sm transition duration-300 relative overflow-hidden">
+                            <span class="relative z-10 text-[#D4AF37] group-hover:text-[#1a120e] transition-colors duration-300">View Selected Works</span>
+                            <div class="absolute inset-0 border border-[#D4AF37]"></div>
+                            <div class="absolute inset-0 bg-[#D4AF37] transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Scroll Indicator -->
+                <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-500">
+                    <i class="fas fa-chevron-down text-2xl"></i>
                 </div>
             </section>
 
             <!-- Partners / Trust Bar -->
-            <section class="py-12 bg-[#2B2018] border-y border-[#3E2D23]">
-                <div class="max-w-7xl mx-auto px-4 text-center">
-                    <p class="text-gray-500 uppercase text-xs tracking-widest mb-6">Trusted for Major Indian & Global Events</p>
-                    <div class="flex flex-wrap justify-center gap-12 opacity-60 grayscale hover:grayscale-0 transition duration-500">
-                        <span class="text-2xl font-bold font-serif text-white">NESCO</span>
-                        <span class="text-2xl font-bold font-sans text-white">DEVFEST</span>
-                        <span class="text-2xl font-bold font-mono text-white">GOOGLE</span>
-                        <span class="text-2xl font-bold font-serif italic text-white">TEDx</span>
-                        <span class="text-2xl font-bold font-sans text-white">TECHSPARKS</span>
+            <section class="py-16 bg-[#2B2018] border-y border-[#3E2D23] relative overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+                    <p class="text-[#D4AF37] uppercase text-xs tracking-[0.3em] mb-12 font-bold">Trusted by Industry Leaders</p>
+                    
+                    <div class="glass-panel max-w-6xl mx-auto rounded-lg p-10">
+                        <div class="flex flex-wrap justify-center items-center gap-x-16 gap-y-10 opacity-70">
+                            <div class="text-center group hover:opacity-100 transition duration-300">
+                                <span class="block text-2xl md:text-3xl font-bold font-sans text-white mb-1 group-hover:text-[#D4AF37] transition-colors">GOOGLE CLOUD</span>
+                                <span class="text-[10px] uppercase text-gray-400 tracking-widest">Community Day</span>
+                            </div>
+                            <div class="text-center group hover:opacity-100 transition duration-300">
+                                <span class="block text-2xl md:text-3xl font-bold font-serif text-white mb-1 group-hover:text-[#D4AF37] transition-colors">IIT BOMBAY</span>
+                                <span class="text-[10px] uppercase text-gray-400 tracking-widest">Techfest Partner</span>
+                            </div>
+                            <div class="text-center group hover:opacity-100 transition duration-300">
+                                <span class="block text-2xl md:text-3xl font-bold font-mono text-white mb-1 group-hover:text-[#D4AF37] transition-colors">MUMBAI HACK</span>
+                                <span class="text-[10px] uppercase text-gray-400 tracking-widest">Hackathon Ops</span>
+                            </div>
+                            <div class="text-center group hover:opacity-100 transition duration-300">
+                                <span class="block text-2xl md:text-3xl font-bold font-sans text-white mb-1 group-hover:text-[#D4AF37] transition-colors">SBI</span>
+                                <span class="text-[10px] uppercase text-gray-400 tracking-widest">Marathon Logistics</span>
+                            </div>
+                            <div class="text-center group hover:opacity-100 transition duration-300">
+                                <span class="block text-2xl md:text-3xl font-bold font-serif italic text-white mb-1 group-hover:text-[#D4AF37] transition-colors">TATA MOTORS</span>
+                                <span class="text-[10px] uppercase text-gray-400 tracking-widest">Sierra Launch</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Short About Teaser -->
-            <section class="py-20 max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-                <div class="order-2 md:order-1 relative">
-                    <div class="absolute -top-4 -left-4 w-full h-full border-2 border-[#D4AF37] opacity-30"></div>
-                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Elegant Gala Setup" class="relative z-10 w-full shadow-2xl">
+            <!-- The Festonova Difference -->
+            <section class="py-24 max-w-7xl mx-auto px-4">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="glass-panel p-8 rounded-sm hover:-translate-y-2 transition duration-500 group relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-[#2B2018] rounded-full flex items-center justify-center text-[#D4AF37] text-2xl mb-6 group-hover:bg-[#D4AF37] group-hover:text-black transition duration-300 shadow-lg">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-4">Precision Speed</h3>
+                            <p class="text-gray-400 leading-relaxed text-sm">
+                                In the world of live events, there are no second takes. Our military-grade logistics ensure that from the first cable laid to the final guest departure, everything runs on the second.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="glass-panel p-8 rounded-sm hover:-translate-y-2 transition duration-500 group relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-[#2B2018] rounded-full flex items-center justify-center text-[#D4AF37] text-2xl mb-6 group-hover:bg-[#D4AF37] group-hover:text-black transition duration-300 shadow-lg">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-4">Luxury Standards</h3>
+                            <p class="text-gray-400 leading-relaxed text-sm">
+                                Whether it is a hackathon for developers or a gala for CEOs, the experience must be premium. We bring 5-star hospitality standards to every touchpoint of the event journey.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="glass-panel p-8 rounded-sm hover:-translate-y-2 transition duration-500 group relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-[#2B2018] rounded-full flex items-center justify-center text-[#D4AF37] text-2xl mb-6 group-hover:bg-[#D4AF37] group-hover:text-black transition duration-300 shadow-lg">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-4">Tech-First Approach</h3>
+                            <p class="text-gray-400 leading-relaxed text-sm">
+                                Born in 2023, we are digital natives. We integrate the latest event tech, from RFID registrations to immersive projection mapping and robust hackathon internet infrastructure.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="order-1 md:order-2">
-                    <h2 class="text-4xl text-white font-bold mb-6">Mumbai Roots, <span class="text-gold-gradient">Global Standards</span></h2>
-                    <p class="text-gray-300 mb-6 leading-relaxed">
-                        Based in the heart of Mumbai, Festonova isn't just an event planner; we are your strategic partner for India's most dynamic corporate landscape. Whether it is a massive exhibition at Nesco, a community-driven DevFest, or an intimate boardroom summit, we bring military-grade logistics and artistic flair to the table.
-                    </p>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-center text-[#D4AF37]">
-                            <i class="fas fa-check-circle mr-3"></i> Experts in Large-Scale Tech Fests
-                        </li>
-                        <li class="flex items-center text-[#D4AF37]">
-                            <i class="fas fa-check-circle mr-3"></i> Nesco & BKC Venue Specialists
-                        </li>
-                        <li class="flex items-center text-[#D4AF37]">
-                            <i class="fas fa-check-circle mr-3"></i> End-to-End Corporate Production
-                        </li>
-                    </ul>
-                    <a href="#about" class="text-[#D4AF37] border-b border-[#D4AF37] pb-1 hover:text-white transition">Read Our Story &rarr;</a>
+            </section>
+
+            <!-- Expanded About Section -->
+            <section class="py-24 bg-[#2B2018] relative">
+                <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] opacity-30"></div>
+                <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+                    <div class="relative group">
+                        <!-- Floating Image Effect -->
+                        <div class="absolute -top-6 -left-6 w-full h-full border-2 border-[#D4AF37] opacity-20 transition duration-700 group-hover:top-4 group-hover:left-4"></div>
+                        <img src="imgs/about-story.jpg" alt="Festonova Team Planning" class="relative z-10 w-full shadow-2xl grayscale hover:grayscale-0 transition duration-700">
+                    </div>
+                    <div>
+                        <span class="text-[#D4AF37] font-bold tracking-widest uppercase text-sm mb-2 block">Our Story</span>
+                        <h2 class="text-4xl md:text-5xl text-white font-bold mb-8 leading-tight">Mumbai Roots, <br><span class="text-gold-gradient">World Class Execution</span></h2>
+                        <p class="text-gray-300 mb-6 leading-relaxed text-lg">
+                            Established in 2023, Festonova has rapidly become the go-to partner for India's most dynamic events. We identified a gap in the market: traditional event planners didn't understand technology, and tech vendors didn't understand hospitality.
+                        </p>
+                        <p class="text-gray-300 mb-8 leading-relaxed text-lg">
+                            We bridge that gap. We are a team of engineers, designers, and logistical experts who don't just plan events; we engineer experiences. Whether it's managing the adrenaline of the <strong>SBI Half Marathon</strong> or the precision required for the <strong>Tata Sierra Launch</strong>, our team delivers with flawless execution.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-6 mb-10">
+                            <div class="border-l-2 border-[#D4AF37] pl-4">
+                                <span class="block text-3xl font-bold text-white mb-1">50+</span>
+                                <span class="text-gray-400 text-sm uppercase">Events Since 2023</span>
+                            </div>
+                            <div class="border-l-2 border-[#D4AF37] pl-4">
+                                <span class="block text-3xl font-bold text-white mb-1">10k+</span>
+                                <span class="text-gray-400 text-sm uppercase">Attendees Managed</span>
+                            </div>
+                        </div>
+
+                        <a href="#about-us" class="inline-block border-b-2 border-[#D4AF37] text-white pb-1 hover:text-[#D4AF37] transition">Read Our Full Vision &rarr;</a>
+                    </div>
                 </div>
             </section>
         </div>
 
         <!-- ================= SERVICES PAGE ================= -->
         <div id="services" class="page-section">
-            <section class="py-20 bg-[#1a120e]">
+            <section class="py-24 bg-[#1a120e]">
                 <div class="max-w-7xl mx-auto px-4">
-                    <div class="text-center max-w-3xl mx-auto mb-16">
-                        <h2 class="text-5xl font-bold text-white mb-6">Our Expertise</h2>
-                        <p class="text-xl text-gray-400">Comprehensive event solutions tailored for the modern enterprise. We handle the details; you handle the applause.</p>
+                    <div class="text-center max-w-3xl mx-auto mb-20">
+                        <span class="text-[#D4AF37] uppercase tracking-[0.2em] font-bold text-xs">What We Do</span>
+                        <h2 class="text-5xl md:text-6xl font-bold text-white mt-4 mb-8">Comprehensive Expertise</h2>
+                        <p class="text-xl text-gray-400">We offer end-to-end solutions. From the initial concept sketch to the post-event analytics report, we manage every detail.</p>
                     </div>
 
-                    <!-- Service 1: Conferences -->
-                    <div class="grid md:grid-cols-2 gap-0 mb-12 bg-[#2B2018] shadow-2xl group">
-                        <div class="img-zoom-container h-80 md:h-auto relative">
-                            <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover" alt="Conference">
+                    <div class="space-y-24">
+                        <!-- Service 1: Tech & Hackathons -->
+                        <div class="grid md:grid-cols-2 gap-12 items-center group">
+                            <div class="img-zoom-container h-[500px] relative overflow-hidden rounded-sm shadow-2xl">
+                                <div class="absolute inset-0 bg-black/20 z-10"></div>
+                                <img src="imgs/service-tech.jpg" class="w-full h-full object-cover" alt="Hackathon Event">
+                            </div>
+                            <div class="md:pl-10">
+                                <div class="w-16 h-1 bg-[#D4AF37] mb-8"></div>
+                                <h3 class="text-4xl font-bold text-white mb-6">Tech Fests & Hackathons</h3>
+                                <p class="text-gray-300 mb-8 leading-relaxed text-lg">
+                                    We speak the language of tech. Having managed <strong>Mumbai Hack</strong> and <strong>Techfest IIT Bombay</strong>, we understand the specific needs of developer communities. We provide robust infrastructure that ensures zero downtime during critical coding sprints.
+                                </p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check text-[#D4AF37] mt-1 mr-3"></i>
+                                        <div>
+                                            <h5 class="text-white font-bold">Network Infrastructure</h5>
+                                            <p class="text-xs text-gray-500">High-speed leased lines & backups</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check text-[#D4AF37] mt-1 mr-3"></i>
+                                        <div>
+                                            <h5 class="text-white font-bold">Power Management</h5>
+                                            <p class="text-xs text-gray-500">24/7 Generator support</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check text-[#D4AF37] mt-1 mr-3"></i>
+                                        <div>
+                                            <h5 class="text-white font-bold">Sponsor Booths</h5>
+                                            <p class="text-xs text-gray-500">Modular fabrication</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check text-[#D4AF37] mt-1 mr-3"></i>
+                                        <div>
+                                            <h5 class="text-white font-bold">F&B Logistics</h5>
+                                            <p class="text-xs text-gray-500">Round-the-clock catering</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="p-10 md:p-16 flex flex-col justify-center border-b-4 border-[#D4AF37]">
-                            <i class="fas fa-microphone-alt text-4xl text-[#D4AF37] mb-6"></i>
-                            <h3 class="text-3xl font-bold text-white mb-4">Tech Fests & DevFests</h3>
-                            <p class="text-gray-300 mb-6 leading-relaxed">
-                                Scalable logistics for 500 to 10,000 attendees. We manage venue sourcing, speaker coordination, complex AV setups, and hackathon infrastructure with flawless execution.
-                            </p>
-                            <ul class="text-sm text-gray-400 space-y-2">
-                                <li>• Multi-track agenda management</li>
-                                <li>• High-speed network infrastructure</li>
-                                <li>• Sponsor exhibition booth fabrication</li>
-                            </ul>
+
+                        <!-- Service 2: Product Launches -->
+                        <div class="grid md:grid-cols-2 gap-12 items-center group">
+                            <div class="md:order-1 md:pr-10 order-2">
+                                <div class="w-16 h-1 bg-[#D4AF37] mb-8"></div>
+                                <h3 class="text-4xl font-bold text-white mb-6">High-Impact Product Launches</h3>
+                                <p class="text-gray-300 mb-8 leading-relaxed text-lg">
+                                    Make a statement that echoes. We design immersive reveal moments using state-of-the-art lighting and projection mapping. Our work on the <strong>Tata Sierra Launch</strong> stands as a testament to our precision in high-stakes environments where media attention is global.
+                                </p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check text-[#D4AF37] mt-1 mr-3"></i>
+                                        <div>
+                                            <h5 class="text-white font-bold">Stage Fabrication</h5>
+                                            <p class="text-xs text-gray-500">Custom mechanical reveals</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check text-[#D4AF37] mt-1 mr-3"></i>
+                                        <div>
+                                            <h5 class="text-white font-bold">Media Management</h5>
+                                            <p class="text-xs text-gray-500">Press risers & audio splits</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check text-[#D4AF37] mt-1 mr-3"></i>
+                                        <div>
+                                            <h5 class="text-white font-bold">AV Production</h5>
+                                            <p class="text-xs text-gray-500">4K LED walls & line arrays</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check text-[#D4AF37] mt-1 mr-3"></i>
+                                        <div>
+                                            <h5 class="text-white font-bold">Show Calling</h5>
+                                            <p class="text-xs text-gray-500">Professional technical directors</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="img-zoom-container h-[500px] relative overflow-hidden rounded-sm shadow-2xl md:order-2 order-1">
+                                <div class="absolute inset-0 bg-black/20 z-10"></div>
+                                <img src="imgs/service-launch.jpg" class="w-full h-full object-cover" alt="Product Launch Spotlight">
+                            </div>
                         </div>
+
+                        <!-- Service 3: Corporate Parties -->
+                        <div class="grid md:grid-cols-2 gap-12 items-center group">
+                            <div class="img-zoom-container h-[500px] relative overflow-hidden rounded-sm shadow-2xl">
+                                <div class="absolute inset-0 bg-black/20 z-10"></div>
+                                <img src="imgs/service-party.jpg" class="w-full h-full object-cover" alt="Corporate Gala Dinner">
+                            </div>
+                            <div class="md:pl-10">
+                                <div class="w-16 h-1 bg-[#D4AF37] mb-8"></div>
+                                <h3 class="text-4xl font-bold text-white mb-6">Elite Corporate Parties</h3>
+                                <p class="text-gray-300 mb-8 leading-relaxed text-lg">
+                                    Sophistication and style. We have curated exclusive corporate parties for top-tier companies. From menu curation with celebrity chefs to entertainment booking and thematic decor, we create an atmosphere of celebration and prestige that rewards your stakeholders.
+                                </p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check text-[#D4AF37] mt-1 mr-3"></i>
+                                        <div>
+                                            <h5 class="text-white font-bold">Venue Sourcing</h5>
+                                            <p class="text-xs text-gray-500">Premium hotels & private clubs</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check text-[#D4AF37] mt-1 mr-3"></i>
+                                        <div>
+                                            <h5 class="text-white font-bold">Entertainment</h5>
+                                            <p class="text-xs text-gray-500">Live bands, DJs, & MCs</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check text-[#D4AF37] mt-1 mr-3"></i>
+                                        <div>
+                                            <h5 class="text-white font-bold">Decor & Ambience</h5>
+                                            <p class="text-xs text-gray-500">Floral, lighting, & furniture</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check text-[#D4AF37] mt-1 mr-3"></i>
+                                        <div>
+                                            <h5 class="text-white font-bold">Guest Management</h5>
+                                            <p class="text-xs text-gray-500">RSVP & on-site hospitality</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <!-- Service 2: Product Launches -->
-                    <div class="grid md:grid-cols-2 gap-0 mb-12 bg-[#2B2018] shadow-2xl group">
-                        <div class="p-10 md:p-16 flex flex-col justify-center md:order-1 border-b-4 border-[#D4AF37] order-2">
-                            <i class="fas fa-rocket text-4xl text-[#D4AF37] mb-6"></i>
-                            <h3 class="text-3xl font-bold text-white mb-4">Exhibitions (Nesco/BKC)</h3>
-                            <p class="text-gray-300 mb-6 leading-relaxed">
-                                Create a media frenzy. We design immersive environments using state-of-the-art lighting, projection mapping, and stage design to ensure your new product is unforgettable.
-                            </p>
-                            <ul class="text-sm text-gray-400 space-y-2">
-                                <li>• Large scale stall fabrication</li>
-                                <li>• Visitor management systems</li>
-                                <li>• High-impact reveal mechanics</li>
-                            </ul>
+                    <!-- New CTA Section for Services Page -->
+                    <div class="mt-24 text-center bg-gradient-to-r from-[#2B2018] to-[#1a120e] border border-[#3E2D23] p-16 rounded shadow-2xl relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4 opacity-5">
+                            <i class="fas fa-rocket text-9xl text-[#D4AF37]"></i>
                         </div>
-                        <div class="img-zoom-container h-80 md:h-auto relative md:order-2 order-1">
-                            <img src="https://images.unsplash.com/photo-1505373877841-8d43f7d6d271?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover" alt="Product Launch">
-                        </div>
-                    </div>
-
-                    <!-- Service 3: Gala Dinners -->
-                    <div class="grid md:grid-cols-2 gap-0 bg-[#2B2018] shadow-2xl group">
-                        <div class="img-zoom-container h-80 md:h-auto relative">
-                            <img src="https://images.unsplash.com/photo-1519671482502-9759101d4561?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover" alt="Gala Dinner">
-                        </div>
-                        <div class="p-10 md:p-16 flex flex-col justify-center border-b-4 border-[#D4AF37]">
-                            <i class="fas fa-wine-glass-alt text-4xl text-[#D4AF37] mb-6"></i>
-                            <h3 class="text-3xl font-bold text-white mb-4">Corporate Galas & Awards</h3>
-                            <p class="text-gray-300 mb-6 leading-relaxed">
-                                Sophistication and style. From menu curation with top chefs to entertainment booking and decor, we create an atmosphere of celebration and prestige for your stakeholders.
-                            </p>
-                            <ul class="text-sm text-gray-400 space-y-2">
-                                <li>• Theme design & floral arrangements</li>
-                                <li>• VIP guest management & security</li>
-                                <li>• Entertainment & MC booking</li>
-                            </ul>
+                        <h3 class="text-3xl font-bold text-white mb-4">Ready to Innovate Your Next Event?</h3>
+                        <p class="text-gray-300 mb-8 max-w-2xl mx-auto text-lg">Contact our team to streamline your corporate event strategy and see how Festonova brings vision to reality.</p>
+                        
+                        <div class="flex flex-col sm:flex-row justify-center gap-6 mt-8">
+                            <a href="#contact" class="inline-flex items-center gap-3 bg-gold-btn text-[#1a120e] px-10 py-4 font-bold uppercase tracking-widest transition duration-300 hover:scale-105 shadow-gold-glow">
+                                <i class="fas fa-calendar-check"></i> Book a Consultation
+                            </a>
+                            <a href="imgs/Festonova_Event_Management_Deck.pdf" download class="inline-flex items-center gap-3 border border-[#D4AF37] text-[#D4AF37] px-10 py-4 font-bold uppercase tracking-widest transition duration-300 hover:bg-[#D4AF37] hover:text-[#1a120e]">
+                                <i class="fas fa-download"></i> Free Planning Checklist
+                            </a>
                         </div>
                     </div>
-
                 </div>
             </section>
         </div>
 
         <!-- ================= PORTFOLIO PAGE ================= -->
         <div id="portfolio" class="page-section">
-            <section class="py-20">
+            <section class="py-24">
                 <div class="max-w-7xl mx-auto px-4">
                     <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-[#3E2D23] pb-8">
                         <div>
-                            <h2 class="text-5xl font-bold text-white mb-4">Selected Works</h2>
-                            <p class="text-gray-400 max-w-xl">A showcase of our most ambitious projects across India.</p>
+                            <span class="text-[#D4AF37] uppercase tracking-[0.2em] font-bold text-xs">Our Work</span>
+                            <h2 class="text-5xl font-bold text-white mt-4 mb-4">Selected Portfolio</h2>
+                            <p class="text-gray-400 max-w-xl text-lg">A showcase of our most ambitious projects since 2023. We let our execution speak for itself.</p>
                         </div>
-                        <div class="mt-6 md:mt-0">
-                            <span class="text-[#D4AF37] font-bold text-4xl">250+</span>
-                            <span class="block text-gray-500 text-sm uppercase tracking-wider">Events Delivered</span>
+                        <div class="mt-6 md:mt-0 text-right">
+                            <span class="text-[#D4AF37] font-bold text-6xl">50+</span>
+                            <span class="block text-gray-500 text-sm uppercase tracking-wider mt-2">Projects Delivered Successfully</span>
                         </div>
                     </div>
 
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Featured Projects Grid -->
+                    <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-10 mb-20">
                         
-                        <!-- Project 1 -->
+                        <!-- Project 1: Tata Sierra -->
                         <div class="group cursor-pointer">
-                            <div class="relative overflow-hidden h-96 mb-6">
-                                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition z-10"></div>
-                                <img src="https://images.unsplash.com/photo-1560523160-754a9e25c68f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                                     class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="Tech Summit">
-                                <div class="absolute bottom-6 left-6 z-20">
-                                    <span class="bg-[#D4AF37] text-black px-3 py-1 text-xs font-bold uppercase tracking-wide">Tech</span>
-                                    <h3 class="text-2xl font-bold text-white mt-2">DevFest Mumbai</h3>
+                            <div class="relative overflow-hidden h-[400px] mb-6 rounded-sm">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 z-10"></div>
+                                <img src="imgs/portfolio-tata.jpg" 
+                                     class="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000" alt="Tata Car Launch">
+                                <div class="absolute bottom-8 left-8 z-20">
+                                    <span class="bg-[#D4AF37] text-black px-4 py-1 text-xs font-bold uppercase tracking-widest mb-3 inline-block">Automotive</span>
+                                    <h3 class="text-3xl font-bold text-white">Tata Sierra Launch</h3>
+                                    <p class="text-gray-300 mt-2 opacity-0 group-hover:opacity-100 transition duration-500 transform translate-y-4 group-hover:translate-y-0">
+                                        Projection mapping, hydraulic reveals, and press management for 200+ media personnel.
+                                    </p>
                                 </div>
-                            </div>
-                            <div class="px-2">
-                                <p class="text-gray-300 text-sm mb-2">Mumbai, India</p>
-                                <p class="text-gray-400 leading-relaxed text-sm">
-                                    <strong class="text-white">Challenge:</strong> Coordinate 50 speakers across 3 days.<br>
-                                    <strong class="text-white">Result:</strong> 5,000 attendees, 98% satisfaction rate.
-                                </p>
                             </div>
                         </div>
 
-                        <!-- Project 2 -->
+                        <!-- Project 2: Techfest IIT Bombay -->
                         <div class="group cursor-pointer">
-                            <div class="relative overflow-hidden h-96 mb-6">
-                                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition z-10"></div>
-                                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                                     class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="Gala">
-                                <div class="absolute bottom-6 left-6 z-20">
-                                    <span class="bg-[#D4AF37] text-black px-3 py-1 text-xs font-bold uppercase tracking-wide">Exhibition</span>
-                                    <h3 class="text-2xl font-bold text-white mt-2">Nesco Tech Expo</h3>
+                            <div class="relative overflow-hidden h-[400px] mb-6 rounded-sm">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 z-10"></div>
+                                <img src="imgs/portfolio-techfest.jpg" 
+                                     class="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000" alt="Tech Fest Crowd">
+                                <div class="absolute bottom-8 left-8 z-20">
+                                    <span class="bg-[#D4AF37] text-black px-4 py-1 text-xs font-bold uppercase tracking-widest mb-3 inline-block">Education / Tech</span>
+                                    <h3 class="text-3xl font-bold text-white">Techfest IIT Bombay</h3>
+                                    <p class="text-gray-300 mt-2 opacity-0 group-hover:opacity-100 transition duration-500 transform translate-y-4 group-hover:translate-y-0">
+                                        Logistics partner for Asia's largest science and technology festival. Crowd control for 15,000+ daily footfall.
+                                    </p>
                                 </div>
-                            </div>
-                            <div class="px-2">
-                                <p class="text-gray-300 text-sm mb-2">Goregaon, Mumbai</p>
-                                <p class="text-gray-400 leading-relaxed text-sm">
-                                    <strong class="text-white">Challenge:</strong> Managing footfall of 10k+ daily.<br>
-                                    <strong class="text-white">Result:</strong> Record breaking exhibitor ROI.
-                                </p>
                             </div>
                         </div>
 
-                        <!-- Project 3 -->
+                        <!-- Project 3: SBI Marathon -->
                         <div class="group cursor-pointer">
-                            <div class="relative overflow-hidden h-96 mb-6">
-                                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition z-10"></div>
-                                <img src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                                     class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="Launch">
-                                <div class="absolute bottom-6 left-6 z-20">
-                                    <span class="bg-[#D4AF37] text-black px-3 py-1 text-xs font-bold uppercase tracking-wide">Automotive</span>
-                                    <h3 class="text-2xl font-bold text-white mt-2">EV Launch India</h3>
+                            <div class="relative overflow-hidden h-[400px] mb-6 rounded-sm">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 z-10"></div>
+                                <img src="imgs/portfolio-sbi.jpg" 
+                                     class="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000" alt="Marathon Runners">
+                                <div class="absolute bottom-8 left-8 z-20">
+                                    <span class="bg-[#D4AF37] text-black px-4 py-1 text-xs font-bold uppercase tracking-widest mb-3 inline-block">Sports</span>
+                                    <h3 class="text-3xl font-bold text-white">SBI Half Marathon</h3>
+                                    <p class="text-gray-300 mt-2 opacity-0 group-hover:opacity-100 transition duration-500 transform translate-y-4 group-hover:translate-y-0">
+                                        Route management, hydration stations, timing systems, and emergency medical support logistics.
+                                    </p>
                                 </div>
-                            </div>
-                            <div class="px-2">
-                                <p class="text-gray-300 text-sm mb-2">BKC, Mumbai</p>
-                                <p class="text-gray-400 leading-relaxed text-sm">
-                                    <strong class="text-white">Challenge:</strong> High-security vehicle reveal with live broadcast.<br>
-                                    <strong class="text-white">Result:</strong> 1M+ global live-stream viewers.
-                                </p>
                             </div>
                         </div>
 
+                        <!-- Project 4: Google Cloud -->
+                        <div class="group cursor-pointer">
+                            <div class="relative overflow-hidden h-[400px] mb-6 rounded-sm">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 z-10"></div>
+                                <img src="imgs/portfolio-google.jpg" 
+                                     class="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000" alt="Google Event Conference">
+                                <div class="absolute bottom-8 left-8 z-20">
+                                    <span class="bg-[#D4AF37] text-black px-4 py-1 text-xs font-bold uppercase tracking-widest mb-3 inline-block">Corporate</span>
+                                    <h3 class="text-3xl font-bold text-white">Google Cloud Community</h3>
+                                    <p class="text-gray-300 mt-2 opacity-0 group-hover:opacity-100 transition duration-500 transform translate-y-4 group-hover:translate-y-0">
+                                        Community Day event management. Branding, AV setup, Speaker management, and swag distribution.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
-                    <!-- NEW CTA SECTION -->
-                    <div class="mt-20 text-center bg-[#2B2018] border border-[#D4AF37] p-12 rounded shadow-2xl relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-4 opacity-10">
-                            <i class="fas fa-file-pdf text-9xl text-[#D4AF37]"></i>
+                    <!-- Secondary Projects Gallery -->
+                    <div class="mb-20">
+                        <h3 class="text-2xl font-bold text-white mb-8 border-l-4 border-[#D4AF37] pl-4">Recent Highlights</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="aspect-square bg-[#2B2018] relative group overflow-hidden">
+                                <img src="imgs/gallery-1.jpg" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500 group-hover:scale-110">
+                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/60">
+                                    <span class="text-white font-bold text-center px-2">Corporate<br>Gala 2024</span>
+                                </div>
+                            </div>
+                            <div class="aspect-square bg-[#2B2018] relative group overflow-hidden">
+                                <img src="imgs/gallery-2.jpg" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500 group-hover:scale-110">
+                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/60">
+                                    <span class="text-white font-bold text-center px-2">DevFest<br>Mumbai</span>
+                                </div>
+                            </div>
+                            <div class="aspect-square bg-[#2B2018] relative group overflow-hidden">
+                                <img src="imgs/gallery-3.jpg" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500 group-hover:scale-110">
+                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/60">
+                                    <span class="text-white font-bold text-center px-2">Private<br>Networking</span>
+                                </div>
+                            </div>
+                            <div class="aspect-square bg-[#2B2018] relative group overflow-hidden">
+                                <img src="imgs/gallery-4.jpg" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500 group-hover:scale-110">
+                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/60">
+                                    <span class="text-white font-bold text-center px-2">Award<br>Night</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="text-center bg-gradient-to-r from-[#2B2018] to-[#1a120e] border border-[#3E2D23] p-16 rounded shadow-2xl relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4 opacity-5">
+                            <i class="fas fa-crown text-9xl text-[#D4AF37]"></i>
                         </div>
                         <h3 class="text-3xl font-bold text-white mb-4">Ready to Innovate Your Next Event?</h3>
-                        <p class="text-gray-300 mb-8 max-w-2xl mx-auto text-lg">Download our exclusive planning checklist to streamline your corporate event strategy and see how Festonova brings vision to reality.</p>
-                        <a href="Festonova_Event_Management_Deck.pdf" download class="inline-flex items-center gap-3 bg-gold-btn text-[#1a120e] px-10 py-4 font-bold uppercase tracking-widest transition duration-300 hover:scale-105 shadow-gold-glow">
-                            <i class="fas fa-download"></i> Download the Free Planning Checklist
-                        </a>
+                        <p class="text-gray-300 mb-8 max-w-2xl mx-auto text-lg">Contact our team to streamline your corporate event strategy and see how Festonova brings vision to reality.</p>
+                        
+                        <div class="flex flex-col sm:flex-row justify-center gap-6 mt-8">
+                            <a href="#contact" class="inline-flex items-center gap-3 bg-gold-btn text-[#1a120e] px-10 py-4 font-bold uppercase tracking-widest transition duration-300 hover:scale-105 shadow-gold-glow">
+                                <i class="fas fa-calendar-check"></i> Book a Consultation
+                            </a>
+                            <a href="imgs/Festonova_Event_Management_Deck.pdf" download class="inline-flex items-center gap-3 border border-[#D4AF37] text-[#D4AF37] px-10 py-4 font-bold uppercase tracking-widest transition duration-300 hover:bg-[#D4AF37] hover:text-[#1a120e]">
+                                <i class="fas fa-download"></i> Free Planning Checklist
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>
         </div>
 
         <!-- ================= ABOUT PAGE ================= -->
-        <div id="about" class="page-section">
+        <div id="about-us" class="page-section">
             <!-- Hero Info -->
-            <section class="py-20 bg-[#2B2018]">
+            <section class="py-24 bg-[#2B2018]">
                 <div class="max-w-4xl mx-auto px-4 text-center">
-                    <h2 class="text-5xl font-bold text-white mb-8">We are <span class="text-gold-gradient">Festonova India</span></h2>
-                    <p class="text-xl text-gray-300 leading-relaxed">
-                        Founded in 2012, Festonova emerged from a simple belief: Corporate events shouldn't be boring. They should be catalysts for business growth. Based in Mumbai, we combine the precision of project management with the soul of theatre to create moments that matter for DevFests, Tech Fests, and Corporate Giants.
+                    <span class="text-[#D4AF37] uppercase tracking-[0.2em] font-bold text-xs">Who We Are</span>
+                    <h2 class="text-5xl font-bold text-white mt-4 mb-8">We are <span class="text-gold-gradient">Festonova India</span></h2>
+                    <p class="text-xl text-gray-300 leading-relaxed mb-6">
+                        Established in 2023, Festonova emerged with a fresh perspective on Event Management. Based in Mumbai, we combine the precision of project management with the soul of theatre.
+                    </p>
+                    <p class="text-gray-400">
+                        We don't believe in "cookie-cutter" events. Every brand has a unique DNA, and our job is to express that DNA through physical space, sound, and light. From the chaotic energy of a hackathon to the refined silence of an art auction, we adapt our execution style to fit the narrative.
                     </p>
                 </div>
             </section>
 
-            <!-- The Process -->
-            <section class="py-20">
+            <!-- Values -->
+            <section class="py-24 bg-[#1a120e]">
                 <div class="max-w-7xl mx-auto px-4">
-                    <h3 class="text-3xl font-bold text-white text-center mb-16">Our Methodology</h3>
-                    
-                    <div class="grid md:grid-cols-4 gap-8">
-                        <!-- Step 1 -->
-                        <div class="relative p-6 border border-[#3E2D23] hover:border-[#D4AF37] transition duration-300 group">
-                            <div class="text-6xl font-bold text-[#3E2D23] group-hover:text-[#D4AF37]/20 absolute top-4 right-4 transition">01</div>
-                            <h4 class="text-xl font-bold text-white mb-4 relative z-10">Discovery</h4>
-                            <p class="text-gray-400 relative z-10">We dig deep into your brand values, objectives, and audience demographics to build a solid foundation.</p>
+                    <h3 class="text-3xl font-bold text-white text-center mb-16">Our Core Values</h3>
+                    <div class="grid md:grid-cols-3 gap-8 text-center">
+                        <div class="p-8">
+                            <div class="text-[#D4AF37] text-4xl mb-4"><i class="fas fa-crosshairs"></i></div>
+                            <h4 class="text-xl font-bold text-white mb-2">Absolute Precision</h4>
+                            <p class="text-gray-500">We plan in minutes, not hours. Our run-sheets are detailed to the second.</p>
                         </div>
-                         <!-- Step 2 -->
-                         <div class="relative p-6 border border-[#3E2D23] hover:border-[#D4AF37] transition duration-300 group">
-                            <div class="text-6xl font-bold text-[#3E2D23] group-hover:text-[#D4AF37]/20 absolute top-4 right-4 transition">02</div>
-                            <h4 class="text-xl font-bold text-white mb-4 relative z-10">Design</h4>
-                            <p class="text-gray-400 relative z-10">Our creatives draft 3D renders, mood boards, and run-of-shows. We visualize the success before we build it.</p>
+                        <div class="p-8 border-x border-[#3E2D23]">
+                            <div class="text-[#D4AF37] text-4xl mb-4"><i class="fas fa-users"></i></div>
+                            <h4 class="text-xl font-bold text-white mb-2">Audience First</h4>
+                            <p class="text-gray-500">We design backwards from the guest experience, ensuring comfort and engagement.</p>
                         </div>
-                         <!-- Step 3 -->
-                         <div class="relative p-6 border border-[#3E2D23] hover:border-[#D4AF37] transition duration-300 group">
-                            <div class="text-6xl font-bold text-[#3E2D23] group-hover:text-[#D4AF37]/20 absolute top-4 right-4 transition">03</div>
-                            <h4 class="text-xl font-bold text-white mb-4 relative z-10">Execute</h4>
-                            <p class="text-gray-400 relative z-10">Boots on the ground. Our technical directors and stage managers ensure every second runs like clockwork.</p>
-                        </div>
-                         <!-- Step 4 -->
-                         <div class="relative p-6 border border-[#3E2D23] hover:border-[#D4AF37] transition duration-300 group">
-                            <div class="text-6xl font-bold text-[#3E2D23] group-hover:text-[#D4AF37]/20 absolute top-4 right-4 transition">04</div>
-                            <h4 class="text-xl font-bold text-white mb-4 relative z-10">Analyze</h4>
-                            <p class="text-gray-400 relative z-10">We provide detailed post-event data reports, measuring engagement and ROI against your initial goals.</p>
+                        <div class="p-8">
+                            <div class="text-[#D4AF37] text-4xl mb-4"><i class="fas fa-rocket"></i></div>
+                            <h4 class="text-xl font-bold text-white mb-2">Innovation</h4>
+                            <p class="text-gray-500">We constantly explore new tech, from AI-driven networking to sustainable materials.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Team Stats -->
-            <section class="py-20 bg-[url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-fixed bg-cover bg-center relative">
-                <div class="absolute inset-0 bg-[#1a120e]/90"></div>
-                <div class="relative z-10 max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                    <div>
-                        <div class="text-5xl font-bold text-[#D4AF37] mb-2">50+</div>
-                        <div class="text-white uppercase tracking-widest text-sm">Full-Time Staff</div>
-                    </div>
-                    <div>
-                        <div class="text-5xl font-bold text-[#D4AF37] mb-2">15</div>
-                        <div class="text-white uppercase tracking-widest text-sm">Design Awards</div>
-                    </div>
-                    <div>
-                        <div class="text-5xl font-bold text-[#D4AF37] mb-2">32</div>
-                        <div class="text-white uppercase tracking-widest text-sm">Cities Served</div>
-                    </div>
-                    <div>
-                        <div class="text-5xl font-bold text-[#D4AF37] mb-2">100%</div>
-                        <div class="text-white uppercase tracking-widest text-sm">Passion</div>
+            <!-- The Process -->
+            <section class="py-20 bg-[#2B2018] relative overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 relative z-10">
+                    <h3 class="text-3xl font-bold text-white text-center mb-16">Our Methodology</h3>
+                    
+                    <div class="grid md:grid-cols-4 gap-8">
+                        <!-- Step 1 -->
+                        <div class="relative p-8 border border-[#3E2D23] hover:border-[#D4AF37] transition duration-300 group bg-[#1a120e]">
+                            <div class="text-6xl font-bold text-[#3E2D23] group-hover:text-[#D4AF37]/20 absolute top-4 right-4 transition">01</div>
+                            <h4 class="text-xl font-bold text-white mb-4 relative z-10">Discovery</h4>
+                            <p class="text-gray-400 relative z-10 text-sm">We dig deep into your brand values and objectives. Whether it's a marathon or a hackathon, we build a solid foundation.</p>
+                        </div>
+                         <!-- Step 2 -->
+                         <div class="relative p-8 border border-[#3E2D23] hover:border-[#D4AF37] transition duration-300 group bg-[#1a120e]">
+                            <div class="text-6xl font-bold text-[#3E2D23] group-hover:text-[#D4AF37]/20 absolute top-4 right-4 transition">02</div>
+                            <h4 class="text-xl font-bold text-white mb-4 relative z-10">Design</h4>
+                            <p class="text-gray-400 relative z-10 text-sm">Our creatives draft 3D renders and run-of-shows. We visualize the success before we build it.</p>
+                        </div>
+                         <!-- Step 3 -->
+                         <div class="relative p-8 border border-[#3E2D23] hover:border-[#D4AF37] transition duration-300 group bg-[#1a120e]">
+                            <div class="text-6xl font-bold text-[#3E2D23] group-hover:text-[#D4AF37]/20 absolute top-4 right-4 transition">03</div>
+                            <h4 class="text-xl font-bold text-white mb-4 relative z-10">Execute</h4>
+                            <p class="text-gray-400 relative z-10 text-sm">Boots on the ground. From the first brick at the Tata Sierra launch to the last runner at the SBI Marathon.</p>
+                        </div>
+                         <!-- Step 4 -->
+                         <div class="relative p-8 border border-[#3E2D23] hover:border-[#D4AF37] transition duration-300 group bg-[#1a120e]">
+                            <div class="text-6xl font-bold text-[#3E2D23] group-hover:text-[#D4AF37]/20 absolute top-4 right-4 transition">04</div>
+                            <h4 class="text-xl font-bold text-white mb-4 relative z-10">Analyze</h4>
+                            <p class="text-gray-400 relative z-10 text-sm">We provide detailed post-event data reports, measuring engagement and ROI against your initial goals.</p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -464,18 +792,19 @@
 
         <!-- ================= CONTACT PAGE ================= -->
         <div id="contact" class="page-section">
-            <section class="py-20">
+            <section class="py-24">
                 <div class="max-w-7xl mx-auto px-4">
                     <div class="grid md:grid-cols-2 gap-16">
                         
                         <!-- Contact Info -->
                         <div>
-                            <h2 class="text-5xl font-bold text-white mb-6">Let's Create History</h2>
-                            <p class="text-gray-400 mb-10 text-lg">Ready to elevate your corporate events? Fill out the form, and our senior producers will be in touch within 24 hours.</p>
+                            <span class="text-[#D4AF37] uppercase tracking-[0.2em] font-bold text-xs">Get in Touch</span>
+                            <h2 class="text-5xl font-bold text-white mt-4 mb-6">Let's Create History</h2>
+                            <p class="text-gray-400 mb-10 text-lg">Ready to elevate your corporate events? Reach out to us directly. We are available for projects across India.</p>
                             
-                            <div class="space-y-8">
+                            <div class="space-y-8 mb-12">
                                 <div class="flex items-start">
-                                    <div class="w-12 h-12 bg-[#2B2018] flex items-center justify-center text-[#D4AF37] rounded border border-[#3E2D23]">
+                                    <div class="w-12 h-12 bg-[#2B2018] flex items-center justify-center text-[#D4AF37] rounded border border-[#3E2D23] flex-shrink-0">
                                         <i class="fas fa-map-marker-alt text-xl"></i>
                                     </div>
                                     <div class="ml-6">
@@ -485,63 +814,72 @@
                                 </div>
                                 
                                 <div class="flex items-start">
-                                    <div class="w-12 h-12 bg-[#2B2018] flex items-center justify-center text-[#D4AF37] rounded border border-[#3E2D23]">
+                                    <div class="w-12 h-12 bg-[#2B2018] flex items-center justify-center text-[#D4AF37] rounded border border-[#3E2D23] flex-shrink-0">
                                         <i class="fas fa-phone-alt text-xl"></i>
                                     </div>
                                     <div class="ml-6">
                                         <h4 class="text-white font-bold text-lg">Phone</h4>
-                                        <p class="text-gray-400">+91 22 5550 1999<br>Mon-Fri, 9am - 7pm IST</p>
+                                        <p class="text-gray-400 hover:text-[#D4AF37] transition text-xl font-light">
+                                            <a href="tel:+916307640127">+91 6307 640 127</a>
+                                        </p>
+                                        <p class="text-gray-500 text-sm mt-1">Mon-Fri, 9am - 7pm IST</p>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start">
-                                    <div class="w-12 h-12 bg-[#2B2018] flex items-center justify-center text-[#D4AF37] rounded border border-[#3E2D23]">
+                                    <div class="w-12 h-12 bg-[#2B2018] flex items-center justify-center text-[#D4AF37] rounded border border-[#3E2D23] flex-shrink-0">
                                         <i class="fas fa-envelope text-xl"></i>
                                     </div>
                                     <div class="ml-6">
                                         <h4 class="text-white font-bold text-lg">Email</h4>
-                                        <p class="text-gray-400">hello@festonova.com<br>sales@festonova.com</p>
+                                        <p class="text-gray-400"><a href="mailto:info.festonova@gmail.com" class="hover:text-[#D4AF37] transition">info.festonova@gmail.com</a></p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="mt-12 border-t border-[#3E2D23] pt-8">
-                                <h4 class="text-white font-bold mb-4">Our Presence</h4>
-                                <div class="flex gap-4 text-sm text-gray-500 uppercase tracking-wider">
-                                    <span>Mumbai</span> • <span>Delhi NCR</span> • <span>Bangalore</span> • <span>Pune</span>
+                            <!-- Socials on Contact Page -->
+                            <div class="border-t border-[#3E2D23] pt-8">
+                                <h4 class="text-white font-bold mb-4">Follow Our Journey</h4>
+                                <div class="flex gap-4">
+                                    <a href="https://wa.me/6307640127" target="_blank" class="w-10 h-10 bg-[#2B2018] flex items-center justify-center text-gray-400 hover:text-[#25D366] hover:bg-black transition rounded-full" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                                    <a href="mailto:info.festonova@gmail.com" class="w-10 h-10 bg-[#2B2018] flex items-center justify-center text-gray-400 hover:text-[#EA4335] hover:bg-black transition rounded-full" title="Email"><i class="fas fa-envelope"></i></a>
+                                    <a href="https://www.instagram.com/festonova_events/" target="_blank" class="w-10 h-10 bg-[#2B2018] flex items-center justify-center text-gray-400 hover:text-[#D4AF37] hover:bg-black transition rounded-full"><i class="fab fa-instagram"></i></a>
+                                    <a href="https://www.facebook.com/profile.php?id=61585160183510" target="_blank" class="w-10 h-10 bg-[#2B2018] flex items-center justify-center text-gray-400 hover:text-[#D4AF37] hover:bg-black transition rounded-full"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="https://x.com/Festonovaevents" target="_blank" class="w-10 h-10 bg-[#2B2018] flex items-center justify-center text-gray-400 hover:text-[#D4AF37] hover:bg-black transition rounded-full"><i class="fa-brands fa-x-twitter"></i></a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Form -->
-                        <div class="bg-[#2B2018] p-8 md:p-10 rounded shadow-2xl border-t-4 border-[#D4AF37]">
+                        <div class="bg-[#2B2018] p-8 md:p-10 rounded shadow-2xl border-t-4 border-[#D4AF37] h-fit">
                             <h3 class="text-2xl font-bold text-white mb-6">Request a Proposal</h3>
                             <form id="contact-form" class="space-y-6">
                                 <div class="grid grid-cols-2 gap-6">
                                     <div>
-                                        <label class="block text-gray-400 text-sm mb-2">First Name</label>
+                                        <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">First Name</label>
                                         <input type="text" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required>
                                     </div>
                                     <div>
-                                        <label class="block text-gray-400 text-sm mb-2">Last Name</label>
+                                        <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Last Name</label>
                                         <input type="text" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required>
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-gray-400 text-sm mb-2">Company Email</label>
+                                    <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Company Email</label>
                                     <input type="email" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required>
                                 </div>
                                 <div>
-                                    <label class="block text-gray-400 text-sm mb-2">Event Type</label>
+                                    <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Event Type</label>
                                     <select class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition">
-                                        <option>DevFest / TechFest</option>
-                                        <option>Nesco Exhibition / Expo</option>
-                                        <option>Corporate Summit</option>
+                                        <option>Hackathon / Tech Fest</option>
                                         <option>Product Launch</option>
+                                        <option>Corporate Party</option>
+                                        <option>Marathon / Sports Event</option>
+                                        <option>Other</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-gray-400 text-sm mb-2">Tell us about your vision</label>
+                                    <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Vision / Details</label>
                                     <textarea rows="4" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition"></textarea>
                                 </div>
                                 <button type="submit" class="w-full bg-gold-btn text-[#1a120e] font-bold py-4 uppercase tracking-widest hover:shadow-lg transition">
@@ -550,6 +888,29 @@
                             </form>
                         </div>
 
+                    </div>
+                    
+                    <!-- FAQ Section (New) -->
+                    <div class="mt-24 pt-16 border-t border-[#3E2D23]">
+                        <h3 class="text-3xl font-bold text-white text-center mb-12">Frequently Asked Questions</h3>
+                        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                            <div class="bg-[#1a120e] p-6 border border-[#3E2D23] rounded">
+                                <h4 class="text-[#D4AF37] font-bold mb-2">What regions do you serve?</h4>
+                                <p class="text-gray-400 text-sm">While we are headquartered in Mumbai, we actively manage events in Pune, Bangalore, Delhi NCR, and Hyderabad.</p>
+                            </div>
+                            <div class="bg-[#1a120e] p-6 border border-[#3E2D23] rounded">
+                                <h4 class="text-[#D4AF37] font-bold mb-2">Do you handle small private parties?</h4>
+                                <p class="text-gray-400 text-sm">We specialize in corporate events and large-scale productions. For private parties, we typically require a minimum budget threshold. Contact us for details.</p>
+                            </div>
+                            <div class="bg-[#1a120e] p-6 border border-[#3E2D23] rounded">
+                                <h4 class="text-[#D4AF37] font-bold mb-2">Can you manage hybrid events?</h4>
+                                <p class="text-gray-400 text-sm">Yes. Since 2023, 40% of our events have had a hybrid component. We manage the live stream, virtual platform, and physical audience simultaneously.</p>
+                            </div>
+                            <div class="bg-[#1a120e] p-6 border border-[#3E2D23] rounded">
+                                <h4 class="text-[#D4AF37] font-bold mb-2">How much lead time do you need?</h4>
+                                <p class="text-gray-400 text-sm">For large hackathons or launches, we recommend 2-3 months. However, our rapid response team can execute smaller events with 3 weeks notice.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -562,43 +923,49 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div>
                 <a href="#home" class="flex items-center gap-2 mb-6">
-                    <div class="h-10 w-auto">
-                        <img src="logo.png" alt="Festonova Logo" class="h-full object-contain">
+                    <img src="imgs/logo.png" alt="Festonova" class="h-10 w-auto object-contain transition duration-300 hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                    
+                    <!-- Fallback -->
+                    <div class="hidden h-10 w-10 flex items-center justify-center border border-[#D4AF37] rounded-sm transform rotate-45">
+                        <span class="text-[#D4AF37] font-serif font-bold text-xl transform -rotate-45">F</span>
                     </div>
+
                     <span class="text-2xl font-bold tracking-widest text-white font-serif">FESTONOVA</span>
                 </a>
-                <p class="text-gray-500 text-sm leading-relaxed">
-                    Engineering moments of connection for the world's leading brands. 
+                <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                    Engineering moments of connection. From Techfests to Corporate Galas. Proudly serving India since 2023.
                 </p>
-                <div class="flex gap-4 mt-6">
-                    <a href="#" class="text-gray-400 hover:text-[#D4AF37] transition"><i class="fab fa-linkedin text-xl"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-[#D4AF37] transition"><i class="fab fa-instagram text-xl"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-[#D4AF37] transition"><i class="fab fa-twitter text-xl"></i></a>
+                <div class="flex gap-4">
+                    <a href="https://wa.me/6307640127" target="_blank" class="w-8 h-8 flex items-center justify-center border border-gray-700 rounded-full text-gray-400 hover:text-[#25D366] hover:border-[#25D366] transition"><i class="fab fa-whatsapp"></i></a>
+                    <a href="mailto:info.festonova@gmail.com" class="w-8 h-8 flex items-center justify-center border border-gray-700 rounded-full text-gray-400 hover:text-[#EA4335] hover:border-[#EA4335] transition"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.instagram.com/festonova_events/" target="_blank" class="w-8 h-8 flex items-center justify-center border border-gray-700 rounded-full text-gray-400 hover:text-[#D4AF37] hover:border-[#D4AF37] transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61585160183510" target="_blank" class="w-8 h-8 flex items-center justify-center border border-gray-700 rounded-full text-gray-400 hover:text-[#D4AF37] hover:border-[#D4AF37] transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://x.com/Festonovaevents" target="_blank" class="w-8 h-8 flex items-center justify-center border border-gray-700 rounded-full text-gray-400 hover:text-[#D4AF37] hover:border-[#D4AF37] transition"><i class="fa-brands fa-x-twitter"></i></a>
                 </div>
             </div>
             
             <div>
-                <h4 class="text-white font-bold mb-6">Company</h4>
+                <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-xs">Company</h4>
                 <ul class="space-y-3 text-sm text-gray-400">
-                    <li><a href="#about" class="hover:text-[#D4AF37] transition">About Us</a></li>
+                    <li><a href="#about-us" class="hover:text-[#D4AF37] transition">About Us</a></li>
+                    <li><a href="#portfolio" class="hover:text-[#D4AF37] transition">Portfolio</a></li>
+                    <li><a href="#contact" class="hover:text-[#D4AF37] transition">Contact</a></li>
                     <li><a href="#" class="hover:text-[#D4AF37] transition">Careers</a></li>
-                    <li><a href="#" class="hover:text-[#D4AF37] transition">Press</a></li>
-                    <li><a href="#" class="hover:text-[#D4AF37] transition">Sustainability</a></li>
                 </ul>
             </div>
 
             <div>
-                <h4 class="text-white font-bold mb-6">Services</h4>
+                <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-xs">Services</h4>
                 <ul class="space-y-3 text-sm text-gray-400">
-                    <li><a href="#" class="hover:text-[#D4AF37] transition">Corporate Strategy</a></li>
-                    <li><a href="#" class="hover:text-[#D4AF37] transition">Venue Sourcing (Mumbai/Delhi)</a></li>
-                    <li><a href="#" class="hover:text-[#D4AF37] transition">Production & AV</a></li>
-                    <li><a href="#" class="hover:text-[#D4AF37] transition">Logistics</a></li>
+                    <li><a href="#" class="hover:text-[#D4AF37] transition">Hackathon Management</a></li>
+                    <li><a href="#" class="hover:text-[#D4AF37] transition">Corporate Parties</a></li>
+                    <li><a href="#" class="hover:text-[#D4AF37] transition">Product Launches</a></li>
+                    <li><a href="#" class="hover:text-[#D4AF37] transition">Marathon Logistics</a></li>
                 </ul>
             </div>
 
             <div>
-                <h4 class="text-white font-bold mb-6">Newsletter</h4>
+                <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-xs">Newsletter</h4>
                 <p class="text-gray-500 text-sm mb-4">Industry insights delivered to your inbox.</p>
                 <div class="flex">
                     <input type="email" placeholder="Your email" class="bg-[#1a120e] border border-[#3E2D23] text-white px-4 py-2 w-full text-sm focus:outline-none focus:border-[#D4AF37]">
@@ -607,7 +974,7 @@
             </div>
         </div>
         <div class="max-w-7xl mx-auto px-4 pt-8 border-t border-[#3E2D23] text-center md:text-left flex flex-col md:flex-row justify-between items-center">
-            <p class="text-gray-600 text-xs">© 2025 Festonova Events LLC. All Rights Reserved.</p>
+            <p class="text-gray-600 text-xs">© 2025 Festonova Events. All Rights Reserved.</p>
             <div class="flex gap-6 mt-4 md:mt-0 text-xs text-gray-600">
                 <a href="#" class="hover:text-gray-400">Privacy Policy</a>
                 <a href="#" class="hover:text-gray-400">Terms of Service</a>
