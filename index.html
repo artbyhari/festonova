@@ -204,7 +204,7 @@
                     
                     <!-- Header Socials -->
                     <div class="flex gap-4 border-l border-[#3E2D23] pl-6 ml-2 items-center">
-                        <a href="https://wa.me/916307640127?text=Hello%20Festonova%2C%20I%20would%20like%20to%20inquire%20about%20your%20event%20management%20services." target="_blank" class="text-gray-400 hover:text-[#25D366] transition" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://wa.me/6307640127" target="_blank" class="text-gray-400 hover:text-[#25D366] transition" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                         <a href="mailto:info.festonova@gmail.com" class="text-gray-400 hover:text-[#EA4335] transition" title="Email"><i class="fas fa-envelope"></i></a>
                         <a href="https://www.instagram.com/festonova_events/" target="_blank" class="text-gray-400 hover:text-[#D4AF37] transition"><i class="fab fa-instagram"></i></a>
                         <a href="https://www.facebook.com/profile.php?id=61585160183510" target="_blank" class="text-gray-400 hover:text-[#D4AF37] transition"><i class="fab fa-facebook-f"></i></a>
@@ -229,7 +229,7 @@
                 <a href="#contact" class="block px-3 py-3 text-sm uppercase tracking-widest font-bold text-white hover:bg-[#3E2D23] hover:text-[#D4AF37]" onclick="closeMobileMenu()">Contact</a>
                 
                 <div class="flex justify-center gap-6 pt-4 pb-2">
-                    <a href="https://wa.me/916307640127?text=Hello%20Festonova%2C%20I%20would%20like%20to%20inquire%20about%20your%20event%20management%20services." target="_blank" class="text-white text-2xl"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://wa.me/6307640127" target="_blank" class="text-white text-xl"><i class="fab fa-whatsapp"></i></a>
                     <a href="mailto:info.festonova@gmail.com" class="text-white text-xl"><i class="fas fa-envelope"></i></a>
                     <a href="https://www.instagram.com/festonova_events/" target="_blank" class="text-white text-xl"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.facebook.com/profile.php?id=61585160183510" target="_blank" class="text-white text-xl"><i class="fab fa-facebook-f"></i></a>
@@ -852,49 +852,103 @@
 
                         <!-- Form -->
                         <div class="bg-[#2B2018] p-8 md:p-10 rounded shadow-2xl border-t-4 border-[#D4AF37] h-fit">
-    <h3 class="text-2xl font-bold text-white mb-6">Request a Proposal</h3>
+    <h3 id="form-header" class="text-2xl font-bold text-white mb-6">Request a Proposal</h3>
     
-    <form action="https://submit-form.com/0M4LRBBLw" id="contact-form" class="space-y-6" method="POST">
-        <div class="grid grid-cols-2 gap-6">
-            <div>
-                <label for="first-name" class="block text-gray-400 text-xs uppercase tracking-wider mb-2">First Name</label>
-                <input type="text" id="first-name" name="first-name" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required>
+    <form id="contact-form" class="space-y-6">
+        <div id="form-content" class="space-y-6">
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">First Name</label>
+                    <input type="text" name="first_name" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required>
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Last Name</label>
+                    <input type="text" name="last_name" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required>
+                </div>
             </div>
+
             <div>
-                <label for="last-name" class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Last Name</label>
-                <input type="text" id="last-name" name="last-name" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required>
+                <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Company Email</label>
+                <input type="email" name="email" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required>
             </div>
+
+            <div>
+                <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Event Type</label>
+                <select name="event_type" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition">
+                    <option>Hackathon / Tech Fest</option>
+                    <option>Product Launch</option>
+                    <option>Corporate Party</option>
+                    <option>Marathon / Sports Event</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Vision / Details</label>
+                <textarea name="message" rows="4" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required></textarea>
+            </div>
+
+            <button type="submit" id="submit-btn" class="w-full bg-[#D4AF37] text-[#1a120e] font-bold py-4 uppercase tracking-widest hover:brightness-110 transition">
+                Submit Inquiry
+            </button>
         </div>
 
-        <div>
-            <label for="email" class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Company Email</label>
-            <input type="email" id="email" name="email" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required>
+        <div id="success-msg" class="hidden text-center py-8">
+            <h4 class="text-[#D4AF37] text-xl font-bold mb-2">Inquiry Sent!</h4>
+            <p class="text-gray-400">Thank you. We will be in touch shortly.</p>
         </div>
-
-        <div>
-            <label for="event-type" class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Event Type</label>
-            <select id="event-type" name="event-type" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition">
-                <option value="hackathon">Hackathon / Tech Fest</option>
-                <option value="product-launch">Product Launch</option>
-                <option value="corporate-party">Corporate Party</option>
-                <option value="sports-event">Marathon / Sports Event</option>
-                <option value="other">Other</option>
-            </select>
-        </div>
-
-        <div>
-            <label for="message" class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Vision / Details</label>
-            <textarea id="message" name="message" rows="4" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required></textarea>
-        </div>
-
-        <button type="submit" class="w-full bg-[#D4AF37] text-[#1a120e] font-bold py-4 uppercase tracking-widest hover:shadow-lg hover:bg-[#b8962d] transition">
-            Submit Inquiry
-        </button>
     </form>
 </div>
 
-                    </div>
+<script>
+document.getElementById("contact-form").onsubmit = function(e) {
+    e.preventDefault(); // Stop redirect
+    e.stopPropagation(); // Stop other scripts from interfering
+    
+    const btn = document.getElementById("submit-btn");
+    const content = document.getElementById("form-content");
+    const success = document.getElementById("success-msg");
+    const header = document.getElementById("form-header");
+    
+    btn.innerHTML = "SENDING...";
+    btn.disabled = true;
 
+    // Manually sending data to Formspark
+    fetch("https://submit-form.com/0M4LRBBLw", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        body: JSON.stringify({
+            first_name: e.target.first_name.value,
+            last_name: e.target.last_name.value,
+            email: e.target.email.value,
+            event_type: e.target.event_type.value,
+            message: e.target.message.value,
+        }),
+    })
+    .then(function(response) {
+        if (response.ok) {
+            header.classList.add("hidden");
+            content.classList.add("hidden");
+            success.classList.remove("hidden");
+        } else {
+            alert("Submission failed. Please try again.");
+            btn.innerHTML = "Submit Inquiry";
+            btn.disabled = false;
+        }
+    })
+    .catch(function(error) {
+        alert("Error sending form.");
+        btn.disabled = false;
+    });
+
+    return false; // Final hard-stop for redirect
+};
+</script>                    
+</div>
+                    
                     <!-- FAQ Section (New) -->
                     <div class="mt-24 pt-16 border-t border-[#3E2D23]">
                         <h3 class="text-3xl font-bold text-white text-center mb-12">Frequently Asked Questions</h3>
@@ -1061,12 +1115,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
