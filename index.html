@@ -4,10 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Festonova | Premier Corporate Event Management India</title>
+    
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
     <link rel="icon" href="https://raw.githubusercontent.com/artbyhari/festonova/fd59622b675987e725ea818d0a3c7e3595422a4e/imgs/logo.png" sizes="48x48" type="image/png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" defer></script>
+    
     <style>
         :root {
             /* Deep Luxury Brown Palette */
@@ -153,38 +163,39 @@
 </head>
 <body class="antialiased flex flex-col min-h-screen">
 
-    <!-- Firebase Auth (Kept for functionality requirement) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+        // Safety check to prevent ReferenceErrors
+        const configStr = typeof __firebase_config !== 'undefined' ? __firebase_config : '{}';
+        const firebaseConfig = JSON.parse(configStr);
+        
+        if (Object.keys(firebaseConfig).length > 0) {
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
 
-        async function initAuth() {
-            try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
+            async function initAuth() {
+                try {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                } catch (e) {
+                    console.warn("Auth failed", e);
                 }
-            } catch (e) {
-                console.error("Auth failed", e);
             }
+            initAuth();
         }
-        initAuth();
     </script>
 
-    <!-- Navigation -->
     <header class="sticky top-0 z-50 bg-[#1a120e]/95 backdrop-blur-md border-b border-[#3E2D23] shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-24">
-                <!-- Logo -->
                 <a href="#home" class="flex items-center gap-3 group">
                     <img src="imgs/logo.webp" alt="Festonova" class="h-14 w-auto object-contain transition duration-300 group-hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
                     
-                    <!-- Fallback if logo.webp is missing -->
                     <div class="hidden h-12 w-12 flex items-center justify-center border-2 border-[#D4AF37] rounded-sm transform rotate-45 group-hover:rotate-0 transition duration-500">
                         <span class="text-[#D4AF37] font-serif font-bold text-2xl transform -rotate-45 group-hover:rotate-0 transition duration-500">F</span>
                     </div>
@@ -195,7 +206,6 @@
                     </div>
                 </a>
 
-                <!-- Desktop Nav -->
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="#home" class="nav-link text-xs uppercase tracking-[0.15em] font-bold hover:text-[#D4AF37] py-2 transition text-gray-300" data-target="home">Home</a>
                     <a href="#services" class="nav-link text-xs uppercase tracking-[0.15em] font-bold hover:text-[#D4AF37] py-2 transition text-gray-300" data-target="services">Services</a>
@@ -203,9 +213,8 @@
                     <a href="#about-us" class="nav-link text-xs uppercase tracking-[0.15em] font-bold hover:text-[#D4AF37] py-2 transition text-gray-300" data-target="about-us">About</a>
                     <a href="#contact" class="nav-link text-xs uppercase tracking-[0.15em] font-bold hover:text-[#D4AF37] py-2 transition text-gray-300" data-target="contact">Contact</a>
                     
-                    <!-- Header Socials -->
                     <div class="flex gap-4 border-l border-[#3E2D23] pl-6 ml-2 items-center">
-                        <a href="https://wa.me/+916307640127"?text=Hello%20Festonova%2C%20I%20would%20like%20to%20inquire%20about%20your%20event%20management%20services."target="_blank" class="text-gray-400 hover:text-[#25D366] transition" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://wa.me/+916307640127?text=Hello%20Festonova%2C%20I%20would%20like%20to%20inquire%20about%20your%20event%20management%20services." target="_blank" class="text-gray-400 hover:text-[#25D366] transition" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                         <a href="mailto:info.festonova@gmail.com" class="text-gray-400 hover:text-[#EA4335] transition" title="Email"><i class="fas fa-envelope"></i></a>
                         <a href="https://www.instagram.com/festonova_events/" target="_blank" class="text-gray-400 hover:text-[#D4AF37] transition"><i class="fab fa-instagram"></i></a>
                         <a href="https://www.facebook.com/profile.php?id=61585160183510" target="_blank" class="text-gray-400 hover:text-[#D4AF37] transition"><i class="fab fa-facebook-f"></i></a>
@@ -213,14 +222,12 @@
                     </div>
                 </nav>
 
-                <!-- Mobile Menu Button -->
                 <button id="mobile-menu-btn" class="md:hidden text-white hover:text-[#D4AF37] p-2">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
         </div>
         
-        <!-- Mobile Nav Menu (Hidden by default) -->
         <div id="mobile-menu" class="hidden md:hidden bg-[#2B2018] border-b border-[#3E2D23] absolute w-full left-0 top-24 shadow-2xl z-50">
             <div class="px-6 py-4 space-y-3">
                 <a href="#home" class="block px-3 py-3 text-sm uppercase tracking-widest font-bold text-white hover:bg-[#3E2D23] hover:text-[#D4AF37] border-b border-[#3E2D23]" onclick="closeMobileMenu()">Home</a>
@@ -230,7 +237,7 @@
                 <a href="#contact" class="block px-3 py-3 text-sm uppercase tracking-widest font-bold text-white hover:bg-[#3E2D23] hover:text-[#D4AF37]" onclick="closeMobileMenu()">Contact</a>
                 
                 <div class="flex justify-center gap-6 pt-4 pb-2">
-                    <a href="https://wa.me/+916307640127"?text=Hello%20Festonova%2C%20I%20would%20like%20to%20inquire%20about%20your%20event%20management%20services."target="_blank" class="text-white text-xl"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://wa.me/+916307640127?text=Hello%20Festonova%2C%20I%20would%20like%20to%20inquire%20about%20your%20event%20management%20services." target="_blank" class="text-white text-xl"><i class="fab fa-whatsapp"></i></a>
                     <a href="mailto:info.festonova@gmail.com" class="text-white text-xl"><i class="fas fa-envelope"></i></a>
                     <a href="https://www.instagram.com/festonova_events/" target="_blank" class="text-white text-xl"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.facebook.com/profile.php?id=61585160183510" target="_blank" class="text-white text-xl"><i class="fab fa-facebook-f"></i></a>
@@ -240,14 +247,10 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT CONTAINER -->
     <main class="flex-grow">
 
-        <!-- ================= HOME PAGE ================= -->
         <div id="home" class="page-section active">
-            <!-- Hero Section -->
             <section class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
-                <!-- Background Image -->
                 <div class="absolute inset-0 z-0">
                     <img src="imgs/hero-background.webp" 
                          alt="Corporate Event Stage Mumbai" 
@@ -257,22 +260,21 @@
                     <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.webp')] opacity-10"></div>
                 </div>
 
-                <!-- Hero Content -->
                 <div class="relative z-10 text-center px-4 max-w-6xl mx-auto mt-[-50px]">
                     <div class="inline-block border border-[#D4AF37]/50 px-6 py-2 mb-8 rounded-full bg-black/40 backdrop-blur-md animate-fade-in-up" style="animation-delay: 0.1s;">
                         <p class="text-[#D4AF37] uppercase tracking-[0.3em] font-bold text-xs">Excellence Since 2023</p>
                     </div>
                     
                     <h1 class="text-4xl sm:text-5xl md:text-9xl font-bold text-white mb-8 leading-tight drop-shadow-2xl animate-fade-in-up" style="animation-delay: 0.3s; text-shadow: 0 10px 40px rgba(0,0,0,0.8);">
-    Architecting <br> 
-    <span class="text-gold-gradient italic font-serif relative px-1 inline-block">
-        Unforgettable
-        <svg class="absolute w-full h-2 md:h-3 -bottom-1 left-0 text-[#D4AF37] opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none">
-            <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none" />
-        </svg>
-    </span> <br>
-    Moments
-</h1>
+                        Architecting <br> 
+                        <span class="text-gold-gradient italic font-serif relative px-1 inline-block">
+                            Unforgettable
+                            <svg class="absolute w-full h-2 md:h-3 -bottom-1 left-0 text-[#D4AF37] opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none" />
+                            </svg>
+                        </span> <br>
+                        Moments
+                    </h1>
 
                     <p class="text-xl md:text-2xl text-gray-200 mb-12 max-w-3xl mx-auto font-light leading-relaxed animate-fade-in-up" style="animation-delay: 0.5s;">
                         From the high-tech corridors of <strong class="text-white">Techfest IIT Bombay</strong> to the grand reveal of the <strong class="text-white">Tata Sierra</strong>. We handle the chaos so you can focus on the connection.
@@ -290,13 +292,11 @@
                     </div>
                 </div>
                 
-                <!-- Scroll Indicator -->
                 <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-500">
                     <i class="fas fa-chevron-down text-2xl"></i>
                 </div>
             </section>
 
-            <!-- Partners / Trust Bar -->
             <section class="py-16 bg-[#2B2018] border-y border-[#3E2D23] relative overflow-hidden">
                 <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
                     <p class="text-[#D4AF37] uppercase text-xs tracking-[0.3em] mb-12 font-bold">Trusted by Industry Leaders</p>
@@ -328,10 +328,8 @@
                 </div>
             </section>
 
-            <!-- The Festonova Difference -->
             <section class="py-24 max-w-7xl mx-auto px-4">
                 <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Card 1 -->
                     <div class="glass-panel p-8 rounded-sm hover:-translate-y-2 transition duration-500 group relative overflow-hidden">
                         <div class="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
                         <div class="relative z-10">
@@ -345,7 +343,6 @@
                         </div>
                     </div>
 
-                    <!-- Card 2 -->
                     <div class="glass-panel p-8 rounded-sm hover:-translate-y-2 transition duration-500 group relative overflow-hidden">
                         <div class="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
                         <div class="relative z-10">
@@ -359,7 +356,6 @@
                         </div>
                     </div>
 
-                    <!-- Card 3 -->
                     <div class="glass-panel p-8 rounded-sm hover:-translate-y-2 transition duration-500 group relative overflow-hidden">
                         <div class="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
                         <div class="relative z-10">
@@ -375,14 +371,12 @@
                 </div>
             </section>
 
-            <!-- Expanded About Section -->
             <section class="py-24 bg-[#2B2018] relative">
                 <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.webp')] opacity-30"></div>
                 <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center relative z-10">
                     <div class="relative group">
-                        <!-- Floating Image Effect -->
                         <div class="absolute -top-6 -left-6 w-full h-full border-2 border-[#D4AF37] opacity-20 transition duration-700 group-hover:top-4 group-hover:left-4"></div>
-                        <img src="imgs/about-story.webp" alt="Festonova Team Planning" class="relative z-10 w-full shadow-2xl grayscale hover:grayscale-0 transition duration-700">
+                        <img src="imgs/about-story.webp" alt="Festonova Team Planning" loading="lazy" decoding="async" class="relative z-10 w-full shadow-2xl grayscale hover:grayscale-0 transition duration-700">
                     </div>
                     <div>
                         <span class="text-[#D4AF37] font-bold tracking-widest uppercase text-sm mb-2 block">Our Story</span>
@@ -411,7 +405,6 @@
             </section>
         </div>
 
-        <!-- ================= SERVICES PAGE ================= -->
         <div id="services" class="page-section">
             <section class="py-24 bg-[#1a120e]">
                 <div class="max-w-7xl mx-auto px-4">
@@ -422,11 +415,10 @@
                     </div>
 
                     <div class="space-y-24">
-                        <!-- Service 1: Tech & Hackathons -->
                         <div class="grid md:grid-cols-2 gap-12 items-center group">
                             <div class="img-zoom-container h-[500px] relative overflow-hidden rounded-sm shadow-2xl">
                                 <div class="absolute inset-0 bg-black/20 z-10"></div>
-                                <img src="imgs/service-tech.webp" class="w-full h-full object-cover" alt="Hackathon Event">
+                                <img src="imgs/service-tech.webp" class="w-full h-full object-cover" loading="lazy" decoding="async" alt="Hackathon Event">
                             </div>
                             <div class="md:pl-10">
                                 <div class="w-16 h-1 bg-[#D4AF37] mb-8"></div>
@@ -467,7 +459,6 @@
                             </div>
                         </div>
 
-                        <!-- Service 2: Product Launches -->
                         <div class="grid md:grid-cols-2 gap-12 items-center group">
                             <div class="md:order-1 md:pr-10 order-2">
                                 <div class="w-16 h-1 bg-[#D4AF37] mb-8"></div>
@@ -508,15 +499,14 @@
                             </div>
                             <div class="img-zoom-container h-[500px] relative overflow-hidden rounded-sm shadow-2xl md:order-2 order-1">
                                 <div class="absolute inset-0 bg-black/20 z-10"></div>
-                                <img src="imgs/service-launch.webp" class="w-full h-full object-cover" alt="Product Launch Spotlight">
+                                <img src="imgs/service-launch.webp" class="w-full h-full object-cover" loading="lazy" decoding="async" alt="Product Launch Spotlight">
                             </div>
                         </div>
 
-                        <!-- Service 3: Corporate Parties -->
                         <div class="grid md:grid-cols-2 gap-12 items-center group">
                             <div class="img-zoom-container h-[500px] relative overflow-hidden rounded-sm shadow-2xl">
                                 <div class="absolute inset-0 bg-black/20 z-10"></div>
-                                <img src="imgs/service-party.webp" class="w-full h-full object-cover" alt="Corporate Gala Dinner">
+                                <img src="imgs/service-party.webp" class="w-full h-full object-cover" loading="lazy" decoding="async" alt="Corporate Gala Dinner">
                             </div>
                             <div class="md:pl-10">
                                 <div class="w-16 h-1 bg-[#D4AF37] mb-8"></div>
@@ -559,7 +549,6 @@
 
                     </div>
 
-                    <!-- New CTA Section for Services Page -->
                     <div class="mt-24 text-center bg-gradient-to-r from-[#2B2018] to-[#1a120e] border border-[#3E2D23] p-16 rounded shadow-2xl relative overflow-hidden">
                         <div class="absolute top-0 right-0 p-4 opacity-5">
                             <i class="fas fa-rocket text-9xl text-[#D4AF37]"></i>
@@ -580,7 +569,6 @@
             </section>
         </div>
 
-        <!-- ================= PORTFOLIO PAGE ================= -->
         <div id="portfolio" class="page-section">
             <section class="py-24">
                 <div class="max-w-7xl mx-auto px-4">
@@ -596,15 +584,13 @@
                         </div>
                     </div>
 
-                    <!-- Featured Projects Grid -->
                     <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-10 mb-20">
                         
-                        <!-- Project 1: Tata Sierra -->
                         <div class="group cursor-pointer">
                             <div class="relative overflow-hidden h-[400px] mb-6 rounded-sm">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 z-10"></div>
                                 <img src="imgs/portfolio-tata.webp" 
-                                     class="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000" alt="Tata Car Launch">
+                                     class="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000" loading="lazy" decoding="async" alt="Tata Car Launch">
                                 <div class="absolute bottom-8 left-8 z-20">
                                     <span class="bg-[#D4AF37] text-black px-4 py-1 text-xs font-bold uppercase tracking-widest mb-3 inline-block">Automotive</span>
                                     <h3 class="text-3xl font-bold text-white">Tata Sierra Launch</h3>
@@ -615,12 +601,11 @@
                             </div>
                         </div>
 
-                        <!-- Project 2: Techfest IIT Bombay -->
                         <div class="group cursor-pointer">
                             <div class="relative overflow-hidden h-[400px] mb-6 rounded-sm">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 z-10"></div>
                                 <img src="imgs/portfolio-techfest.webp" 
-                                     class="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000" alt="Tech Fest Crowd">
+                                     class="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000" loading="lazy" decoding="async" alt="Tech Fest Crowd">
                                 <div class="absolute bottom-8 left-8 z-20">
                                     <span class="bg-[#D4AF37] text-black px-4 py-1 text-xs font-bold uppercase tracking-widest mb-3 inline-block">Education / Tech</span>
                                     <h3 class="text-3xl font-bold text-white">Techfest IIT Bombay</h3>
@@ -631,12 +616,11 @@
                             </div>
                         </div>
 
-                        <!-- Project 3: SBI Marathon -->
                         <div class="group cursor-pointer">
                             <div class="relative overflow-hidden h-[400px] mb-6 rounded-sm">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 z-10"></div>
                                 <img src="imgs/portfolio-sbi.webp" 
-                                     class="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000" alt="Marathon Runners">
+                                     class="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000" loading="lazy" decoding="async" alt="Marathon Runners">
                                 <div class="absolute bottom-8 left-8 z-20">
                                     <span class="bg-[#D4AF37] text-black px-4 py-1 text-xs font-bold uppercase tracking-widest mb-3 inline-block">Sports</span>
                                     <h3 class="text-3xl font-bold text-white">SBI Half Marathon</h3>
@@ -647,12 +631,11 @@
                             </div>
                         </div>
 
-                        <!-- Project 4: Google Cloud -->
                         <div class="group cursor-pointer">
                             <div class="relative overflow-hidden h-[400px] mb-6 rounded-sm">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 z-10"></div>
                                 <img src="imgs/portfolio-google.webp" 
-                                     class="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000" alt="Google Event Conference">
+                                     class="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000" loading="lazy" decoding="async" alt="Google Event Conference">
                                 <div class="absolute bottom-8 left-8 z-20">
                                     <span class="bg-[#D4AF37] text-black px-4 py-1 text-xs font-bold uppercase tracking-widest mb-3 inline-block">Corporate</span>
                                     <h3 class="text-3xl font-bold text-white">Google Cloud Community</h3>
@@ -664,30 +647,29 @@
                         </div>
                     </div>
                     
-                    <!-- Secondary Projects Gallery -->
                     <div class="mb-20">
                         <h3 class="text-2xl font-bold text-white mb-8 border-l-4 border-[#D4AF37] pl-4">Recent Highlights</h3>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div class="aspect-square bg-[#2B2018] relative group overflow-hidden">
-                                <img src="imgs/gallery-1.webp" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500 group-hover:scale-110">
+                                <img src="imgs/gallery-1.webp" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500 group-hover:scale-110" loading="lazy" decoding="async">
                                 <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/60">
                                     <span class="text-white font-bold text-center px-2">Corporate<br>Gala 2024</span>
                                 </div>
                             </div>
                             <div class="aspect-square bg-[#2B2018] relative group overflow-hidden">
-                                <img src="imgs/gallery-2.webp" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500 group-hover:scale-110">
+                                <img src="imgs/gallery-2.webp" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500 group-hover:scale-110" loading="lazy" decoding="async">
                                 <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/60">
                                     <span class="text-white font-bold text-center px-2">DevFest<br>Mumbai</span>
                                 </div>
                             </div>
                             <div class="aspect-square bg-[#2B2018] relative group overflow-hidden">
-                                <img src="imgs/gallery-3.webp" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500 group-hover:scale-110">
+                                <img src="imgs/gallery-3.webp" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500 group-hover:scale-110" loading="lazy" decoding="async">
                                 <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/60">
                                     <span class="text-white font-bold text-center px-2">Private<br>Networking</span>
                                 </div>
                             </div>
                             <div class="aspect-square bg-[#2B2018] relative group overflow-hidden">
-                                <img src="imgs/gallery-4.webp" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500 group-hover:scale-110">
+                                <img src="imgs/gallery-4.webp" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500 group-hover:scale-110" loading="lazy" decoding="async">
                                 <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/60">
                                     <span class="text-white font-bold text-center px-2">Award<br>Night</span>
                                 </div>
@@ -695,7 +677,6 @@
                         </div>
                     </div>
 
-                    <!-- CTA -->
                     <div class="text-center bg-gradient-to-r from-[#2B2018] to-[#1a120e] border border-[#3E2D23] p-16 rounded shadow-2xl relative overflow-hidden">
                         <div class="absolute top-0 right-0 p-4 opacity-5">
                             <i class="fas fa-crown text-9xl text-[#D4AF37]"></i>
@@ -716,9 +697,7 @@
             </section>
         </div>
 
-        <!-- ================= ABOUT PAGE ================= -->
         <div id="about-us" class="page-section">
-            <!-- Hero Info -->
             <section class="py-24 bg-[#2B2018]">
                 <div class="max-w-4xl mx-auto px-4 text-center">
                     <span class="text-[#D4AF37] uppercase tracking-[0.2em] font-bold text-xs">Who We Are</span>
@@ -732,7 +711,6 @@
                 </div>
             </section>
 
-            <!-- Values -->
             <section class="py-24 bg-[#1a120e]">
                 <div class="max-w-7xl mx-auto px-4">
                     <h3 class="text-3xl font-bold text-white text-center mb-16">Our Core Values</h3>
@@ -756,31 +734,26 @@
                 </div>
             </section>
 
-            <!-- The Process -->
             <section class="py-20 bg-[#2B2018] relative overflow-hidden">
                 <div class="max-w-7xl mx-auto px-4 relative z-10">
                     <h3 class="text-3xl font-bold text-white text-center mb-16">Our Methodology</h3>
                     
                     <div class="grid md:grid-cols-4 gap-8">
-                        <!-- Step 1 -->
                         <div class="relative p-8 border border-[#3E2D23] hover:border-[#D4AF37] transition duration-300 group bg-[#1a120e]">
                             <div class="text-6xl font-bold text-[#3E2D23] group-hover:text-[#D4AF37]/20 absolute top-4 right-4 transition">01</div>
                             <h4 class="text-xl font-bold text-white mb-4 relative z-10">Discovery</h4>
                             <p class="text-gray-400 relative z-10 text-sm">We dig deep into your brand values and objectives. Whether it's a marathon or a hackathon, we build a solid foundation.</p>
                         </div>
-                         <!-- Step 2 -->
                          <div class="relative p-8 border border-[#3E2D23] hover:border-[#D4AF37] transition duration-300 group bg-[#1a120e]">
                             <div class="text-6xl font-bold text-[#3E2D23] group-hover:text-[#D4AF37]/20 absolute top-4 right-4 transition">02</div>
                             <h4 class="text-xl font-bold text-white mb-4 relative z-10">Design</h4>
                             <p class="text-gray-400 relative z-10 text-sm">Our creatives draft 3D renders and run-of-shows. We visualize the success before we build it.</p>
                         </div>
-                         <!-- Step 3 -->
                          <div class="relative p-8 border border-[#3E2D23] hover:border-[#D4AF37] transition duration-300 group bg-[#1a120e]">
                             <div class="text-6xl font-bold text-[#3E2D23] group-hover:text-[#D4AF37]/20 absolute top-4 right-4 transition">03</div>
                             <h4 class="text-xl font-bold text-white mb-4 relative z-10">Execute</h4>
                             <p class="text-gray-400 relative z-10 text-sm">Boots on the ground. From the first brick at the Tata Sierra launch to the last runner at the SBI Marathon.</p>
                         </div>
-                         <!-- Step 4 -->
                          <div class="relative p-8 border border-[#3E2D23] hover:border-[#D4AF37] transition duration-300 group bg-[#1a120e]">
                             <div class="text-6xl font-bold text-[#3E2D23] group-hover:text-[#D4AF37]/20 absolute top-4 right-4 transition">04</div>
                             <h4 class="text-xl font-bold text-white mb-4 relative z-10">Analyze</h4>
@@ -791,13 +764,11 @@
             </section>
         </div>
 
-        <!-- ================= CONTACT PAGE ================= -->
         <div id="contact" class="page-section">
             <section class="py-24">
                 <div class="max-w-7xl mx-auto px-4">
                     <div class="grid md:grid-cols-2 gap-16">
                         
-                        <!-- Contact Info -->
                         <div>
                             <span class="text-[#D4AF37] uppercase tracking-[0.2em] font-bold text-xs">Get in Touch</span>
                             <h2 class="text-5xl font-bold text-white mt-4 mb-6">Let's Create History</h2>
@@ -838,11 +809,10 @@
                                 </div>
                             </div>
 
-                            <!-- Socials on Contact Page -->
                             <div class="border-t border-[#3E2D23] pt-8">
                                 <h4 class="text-white font-bold mb-4">Follow Our Journey</h4>
                                 <div class="flex gap-4">
-                                    <a href="https://wa.me/+916307640127"?text=Hello%20Festonova%2C%20I%20would%20like%20to%20inquire%20about%20your%20event%20management%20services."target="_blank" class="w-10 h-10 bg-[#2B2018] flex items-center justify-center text-gray-400 hover:text-[#25D366] hover:bg-black transition rounded-full" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                                    <a href="https://wa.me/+916307640127?text=Hello%20Festonova%2C%20I%20would%20like%20to%20inquire%20about%20your%20event%20management%20services." target="_blank" class="w-10 h-10 bg-[#2B2018] flex items-center justify-center text-gray-400 hover:text-[#25D366] hover:bg-black transition rounded-full" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                                     <a href="mailto:info.festonova@gmail.com" class="w-10 h-10 bg-[#2B2018] flex items-center justify-center text-gray-400 hover:text-[#EA4335] hover:bg-black transition rounded-full" title="Email"><i class="fas fa-envelope"></i></a>
                                     <a href="https://www.instagram.com/festonova_events/" target="_blank" class="w-10 h-10 bg-[#2B2018] flex items-center justify-center text-gray-400 hover:text-[#D4AF37] hover:bg-black transition rounded-full"><i class="fab fa-instagram"></i></a>
                                     <a href="https://www.facebook.com/profile.php?id=61585160183510" target="_blank" class="w-10 h-10 bg-[#2B2018] flex items-center justify-center text-gray-400 hover:text-[#D4AF37] hover:bg-black transition rounded-full"><i class="fab fa-facebook-f"></i></a>
@@ -851,106 +821,56 @@
                             </div>
                         </div>
 
-                        <!-- Form -->
                         <div class="bg-[#2B2018] p-8 md:p-10 rounded shadow-2xl border-t-4 border-[#D4AF37] h-fit">
-    <h3 id="form-header" class="text-2xl font-bold text-white mb-6">Request a Proposal</h3>
-    
-    <form id="contact-form" class="space-y-6">
-        <div id="form-content" class="space-y-6">
-            <div class="grid grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">First Name</label>
-                    <input type="text" name="first_name" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required>
-                </div>
-                <div>
-                    <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Last Name</label>
-                    <input type="text" name="last_name" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required>
-                </div>
-            </div>
+                            <h3 id="form-header" class="text-2xl font-bold text-white mb-6">Request a Proposal</h3>
+                            
+                            <form id="contact-form" class="space-y-6">
+                                <div id="form-content" class="space-y-6">
+                                    <div class="grid grid-cols-2 gap-6">
+                                        <div>
+                                            <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">First Name</label>
+                                            <input type="text" name="first_name" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required>
+                                        </div>
+                                        <div>
+                                            <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Last Name</label>
+                                            <input type="text" name="last_name" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required>
+                                        </div>
+                                    </div>
 
-            <div>
-                <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Company Email</label>
-                <input type="email" name="email" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required>
-            </div>
+                                    <div>
+                                        <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Company Email</label>
+                                        <input type="email" name="email" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required>
+                                    </div>
 
-            <div>
-                <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Event Type</label>
-                <select name="event_type" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition">
-                    <option>Hackathon / Tech Fest</option>
-                    <option>Product Launch</option>
-                    <option>Corporate Party</option>
-                    <option>Marathon / Sports Event</option>
-                    <option>Other</option>
-                </select>
-            </div>
+                                    <div>
+                                        <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Event Type</label>
+                                        <select name="event_type" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition">
+                                            <option>Hackathon / Tech Fest</option>
+                                            <option>Product Launch</option>
+                                            <option>Corporate Party</option>
+                                            <option>Marathon / Sports Event</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
 
-            <div>
-                <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Vision / Details</label>
-                <textarea name="message" rows="4" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required></textarea>
-            </div>
+                                    <div>
+                                        <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Vision / Details</label>
+                                        <textarea name="message" rows="4" class="w-full bg-[#1a120e] border border-[#3E2D23] text-white p-3 focus:border-[#D4AF37] focus:outline-none transition" required></textarea>
+                                    </div>
 
-            <button type="submit" id="submit-btn" class="w-full bg-[#D4AF37] text-[#1a120e] font-bold py-4 uppercase tracking-widest hover:brightness-110 transition">
-                Submit Inquiry
-            </button>
-        </div>
+                                    <button type="submit" id="submit-btn" class="w-full bg-[#D4AF37] text-[#1a120e] font-bold py-4 uppercase tracking-widest hover:brightness-110 transition">
+                                        Submit Inquiry
+                                    </button>
+                                </div>
 
-        <div id="success-msg" class="hidden text-center py-8">
-            <h4 class="text-[#D4AF37] text-xl font-bold mb-2">Inquiry Sent!</h4>
-            <p class="text-gray-400">Thank you. We will be in touch shortly.</p>
-        </div>
-    </form>
-</div>
-
-<script>
-document.getElementById("contact-form").onsubmit = function(e) {
-    e.preventDefault(); // Stop redirect
-    e.stopPropagation(); // Stop other scripts from interfering
-    
-    const btn = document.getElementById("submit-btn");
-    const content = document.getElementById("form-content");
-    const success = document.getElementById("success-msg");
-    const header = document.getElementById("form-header");
-    
-    btn.innerHTML = "SENDING...";
-    btn.disabled = true;
-
-    // Manually sending data to Formspark
-    fetch("https://submit-form.com/0M4LRBBLw", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        body: JSON.stringify({
-            first_name: e.target.first_name.value,
-            last_name: e.target.last_name.value,
-            email: e.target.email.value,
-            event_type: e.target.event_type.value,
-            message: e.target.message.value,
-        }),
-    })
-    .then(function(response) {
-        if (response.ok) {
-            header.classList.add("hidden");
-            content.classList.add("hidden");
-            success.classList.remove("hidden");
-        } else {
-            alert("Submission failed. Please try again.");
-            btn.innerHTML = "Submit Inquiry";
-            btn.disabled = false;
-        }
-    })
-    .catch(function(error) {
-        alert("Error sending form.");
-        btn.disabled = false;
-    });
-
-    return false; // Final hard-stop for redirect
-};
-</script>                    
-</div>
+                                <div id="success-msg" class="hidden text-center py-8">
+                                    <h4 class="text-[#D4AF37] text-xl font-bold mb-2">Inquiry Sent!</h4>
+                                    <p class="text-gray-400">Thank you. We will be in touch shortly.</p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                     
-                    <!-- FAQ Section (New) -->
                     <div class="mt-24 pt-16 border-t border-[#3E2D23]">
                         <h3 class="text-3xl font-bold text-white text-center mb-12">Frequently Asked Questions</h3>
                         <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -978,14 +898,12 @@ document.getElementById("contact-form").onsubmit = function(e) {
 
     </main>
 
-    <!-- Footer -->
     <footer class="bg-[#0f0a08] border-t border-[#3E2D23] pt-16 pb-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div>
                 <a href="#home" class="flex items-center gap-2 mb-6">
                     <img src="imgs/logo.webp" alt="Festonova" class="h-10 w-auto object-contain transition duration-300 hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
                     
-                    <!-- Fallback -->
                     <div class="hidden h-10 w-10 flex items-center justify-center border border-[#D4AF37] rounded-sm transform rotate-45">
                         <span class="text-[#D4AF37] font-serif font-bold text-xl transform -rotate-45">F</span>
                     </div>
@@ -996,7 +914,7 @@ document.getElementById("contact-form").onsubmit = function(e) {
                     Engineering moments of connection. From Techfests to Corporate Galas. Proudly serving India since 2023.
                 </p>
                 <div class="flex gap-4">
-                    <a href="https://wa.me/+916307640127" ?text=Hello%20Festonova%2C%20I%20would%20like%20to%20inquire%20about%20your%20event%20management%20services. target="_blank" class="w-8 h-8 flex items-center justify-center border border-gray-700 rounded-full text-gray-400 hover:text-[#25D366] hover:border-[#25D366] transition"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://wa.me/+916307640127?text=Hello%20Festonova%2C%20I%20would%20like%20to%20inquire%20about%20your%20event%20management%20services." target="_blank" class="w-8 h-8 flex items-center justify-center border border-gray-700 rounded-full text-gray-400 hover:text-[#25D366] hover:border-[#25D366] transition"><i class="fab fa-whatsapp"></i></a>
                     <a href="mailto:info.festonova@gmail.com" class="w-8 h-8 flex items-center justify-center border border-gray-700 rounded-full text-gray-400 hover:text-[#EA4335] hover:border-[#EA4335] transition"><i class="fas fa-envelope"></i></a>
                     <a href="https://www.instagram.com/festonova_events/" target="_blank" class="w-8 h-8 flex items-center justify-center border border-gray-700 rounded-full text-gray-400 hover:text-[#D4AF37] hover:border-[#D4AF37] transition"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.facebook.com/profile.php?id=61585160183510" target="_blank" class="w-8 h-8 flex items-center justify-center border border-gray-700 rounded-full text-gray-400 hover:text-[#D4AF37] hover:border-[#D4AF37] transition"><i class="fab fa-facebook-f"></i></a>
@@ -1042,7 +960,6 @@ document.getElementById("contact-form").onsubmit = function(e) {
         </div>
     </footer>
 
-    <!-- Notification Modal (Hidden) -->
     <div id="notification" class="fixed top-24 right-4 z-50 bg-[#2B2018] border-l-4 border-[#D4AF37] p-6 shadow-2xl transform translate-x-[150%] transition duration-500 flex items-start gap-4 max-w-sm">
         <i class="fas fa-check-circle text-[#D4AF37] text-2xl mt-1"></i>
         <div>
@@ -1096,39 +1013,61 @@ document.getElementById("contact-form").onsubmit = function(e) {
             mobileMenu.classList.add('hidden');
         }
 
-        // Form Handling
-        document.getElementById('contact-form').addEventListener('submit', (e) => {
-            e.preventDefault();
+        // Consolidated Form Handling (Merged logic for Formspark + Notification UI)
+        document.getElementById("contact-form").addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            e.stopPropagation();
+            
+            const btn = document.getElementById("submit-btn");
+            const content = document.getElementById("form-content");
+            const success = document.getElementById("success-msg");
+            const header = document.getElementById("form-header");
             const notification = document.getElementById('notification');
             
-            // Show notification
-            notification.classList.remove('translate-x-[150%]');
-            
-            // Reset form
-            e.target.reset();
+            // UI Loading State
+            btn.innerHTML = "SENDING...";
+            btn.disabled = true;
 
-            // Hide after 3 seconds
-            setTimeout(() => {
-                notification.classList.add('translate-x-[150%]');
-            }, 4000);
+            // Sending data to Formspark
+            fetch("https://submit-form.com/0M4LRBBLw", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify({
+                    first_name: e.target.first_name.value,
+                    last_name: e.target.last_name.value,
+                    email: e.target.email.value,
+                    event_type: e.target.event_type.value,
+                    message: e.target.message.value,
+                }),
+            })
+            .then(function(response) {
+                if (response.ok) {
+                    // Update Form UI
+                    header.classList.add("hidden");
+                    content.classList.add("hidden");
+                    success.classList.remove("hidden");
+                    
+                    // Trigger Toast Notification
+                    notification.classList.remove('translate-x-[150%]');
+                    setTimeout(() => {
+                        notification.classList.add('translate-x-[150%]');
+                    }, 4000);
+                    
+                } else {
+                    alert("Submission failed. Please try again.");
+                    btn.innerHTML = "Submit Inquiry";
+                    btn.disabled = false;
+                }
+            })
+            .catch(function(error) {
+                alert("Error sending form.");
+                btn.innerHTML = "Submit Inquiry";
+                btn.disabled = false;
+            });
         });
-
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
