@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Festonova | Premier Corporate Event Management India</title>
     
+    <link rel="preload" as="image" href="imgs/hero-background.webp">
+
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,6 +38,8 @@
             background-color: var(--bg-dark);
             color: #f3f4f6;
             overflow-x: hidden;
+            /* Improve touch scrolling on mobile */
+            -webkit-overflow-scrolling: touch; 
         }
 
         h1, h2, h3, h4, h5 {
@@ -79,6 +83,8 @@
             display: none;
             opacity: 0;
             animation: fadeIn 0.8s ease-out forwards;
+            /* Hint to browser to prioritize painting this */
+            will-change: opacity, transform; 
         }
         
         .page-section.active {
@@ -90,14 +96,17 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* New Animations for Home Page */
+        /* Animations */
         @keyframes kenburns {
             0% { transform: scale(1) translate(0,0); }
             100% { transform: scale(1.1) translate(-1%, -1%); }
         }
         
-        .animate-kenburns {
-            animation: kenburns 20s ease-in-out infinite alternate;
+        /* OPTIMIZATION: Only run heavy Ken Burns animation on Desktop */
+        @media (min-width: 768px) {
+            .animate-kenburns {
+                animation: kenburns 20s ease-in-out infinite alternate;
+            }
         }
 
         .animate-fade-in-up {
@@ -114,24 +123,43 @@
             100% { left: 125%; }
         }
         
-        .hover-shine:hover::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 100%);
-            transform: skewX(-25deg);
-            animation: shine 0.75s;
+        /* OPTIMIZATION: Disable hover effects on touch devices to prevent sticky states */
+        @media (hover: hover) {
+            .hover-shine:hover::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 50%;
+                height: 100%;
+                background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 100%);
+                transform: skewX(-25deg);
+                animation: shine 0.75s;
+            }
         }
 
         /* Glass Panels */
         .glass-panel {
-            background: rgba(43, 32, 24, 0.4);
-            backdrop-filter: blur(10px);
             border: 1px solid rgba(212, 175, 55, 0.1);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* OPTIMIZATION: High Quality Glass on Desktop */
+        @media (min-width: 768px) {
+            .glass-panel {
+                background: rgba(43, 32, 24, 0.4);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+        }
+
+        /* OPTIMIZATION: Performance Mode Glass on Mobile (Reduces Lag) */
+        @media (max-width: 767px) {
+            .glass-panel {
+                background: rgba(43, 32, 24, 0.85); /* More opaque */
+                backdrop-filter: blur(4px); /* Less blur */
+                -webkit-backdrop-filter: blur(4px);
+            }
         }
 
         /* Image Hover Zoom */
@@ -140,6 +168,7 @@
         }
         .img-zoom-container img {
             transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform; /* Hint for performance */
         }
         .img-zoom-container:hover img {
             transform: scale(1.1);
